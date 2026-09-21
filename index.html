@@ -1,347 +1,720 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EUC Operations Optimisation & Licence Engineering Playbook — 2026</title>
-<meta name="description" content="A practical EUC optimisation playbook covering Microsoft licensing, F1/F3/E3/E5/E7 scenarios, Windows 365 and AVD cost control, AI licence optimisation, Windows 10 ESU, hardware reuse, automation, user experience and a simple savings calculator.">
+<meta name="description" content="A practical EUC optimisation playbook covering Microsoft licensing, Windows 365, Azure Virtual Desktop, hardware lifecycle, operational automation, employee experience and targeted AI use.">
 <link rel="canonical" href="https://anir-a.github.io/EUC/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="EUC Operations Optimisation & Licence Engineering Playbook — 2026">
-<meta property="og:description" content="Practical ways to reduce EUC cost, improve employee experience and remove operational effort using licensing, virtual desktop, hardware lifecycle, automation and targeted AI.">
+<meta property="og:description" content="Practical ways to reduce EUC cost, improve employee experience and remove operational effort through licence engineering, virtual desktop optimisation, asset reuse, automation and targeted AI.">
 <meta property="og:url" content="https://anir-a.github.io/EUC/">
-<meta property="og:image" content="https://avatars.githubusercontent.com/u/226424606?v=4">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="EUC Operations Optimisation & Licence Engineering Playbook — 2026">
-<meta name="twitter:description" content="Fact-based EUC optimisation across licensing, virtual desktop, hardware, operations and AI.">
+
 <style>
-:root{--navy:#0b1f3a;--blue:#1266c7;--ink:#172033;--muted:#5f6c7d;--line:#dfe6ef;--bg:#f5f7fb;--green:#137a48;--amber:#9a6500;--red:#a62d2d;--softb:#eef5ff;--softg:#edf9f2;--softa:#fff8e7;--softr:#fff1f1}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
-header{background:linear-gradient(135deg,#091a30,#12385f);color:#fff;padding:48px 24px 38px}.wrap{max-width:1220px;margin:auto}
-.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.13em;font-weight:700;color:#bed6f6}h1{font-size:38px;line-height:1.12;margin:8px 0 12px}.subtitle{font-size:18px;color:#dce8f7;max-width:920px}.meta{margin-top:18px;font-size:13px;color:#bdd0e6}
-nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}nav .wrap{display:flex;gap:16px;overflow:auto;padding:11px 24px}nav a{white-space:nowrap;text-decoration:none;color:#31445e;font-size:13px;font-weight:650}
-main{padding:28px 24px 56px}section{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;margin:0 0 22px;box-shadow:0 3px 12px rgba(15,23,42,.035)}
-h2{font-size:26px;margin:0 0 14px}h3{font-size:19px;margin:22px 0 10px}p{margin:8px 0 12px}.lead{font-size:17px;color:#34455f}.small{font-size:12px;color:var(--muted)}
-.grid{display:grid;gap:14px}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.card{border:1px solid var(--line);border-radius:13px;padding:16px;background:#fff}.card h3{margin-top:0}.metric{font-size:25px;font-weight:800}.metric-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.callout{border-left:4px solid var(--blue);background:var(--softb);padding:14px 16px;border-radius:8px;margin:12px 0}.green{border-color:var(--green);background:var(--softg)}.amber{border-color:var(--amber);background:var(--softa)}.red{border-color:var(--red);background:var(--softr)}
-table{width:100%;border-collapse:separate;border-spacing:0;margin:12px 0 16px;font-size:13px}th{background:#f0f4f9;color:#27364b;text-align:left;font-weight:750;border-top:1px solid var(--line)}th,td{padding:10px 11px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);vertical-align:top}th:first-child,td:first-child{border-left:1px solid var(--line)}
-tr:first-child th:first-child{border-top-left-radius:9px}tr:first-child th:last-child{border-top-right-radius:9px}
-.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800}.high{background:var(--softg);color:var(--green)}.med{background:var(--softa);color:var(--amber)}.warn{background:var(--softr);color:var(--red)}
-ul,ol{padding-left:21px}li{margin:5px 0}a{color:var(--blue)}
-.calc{background:#0f2038;color:#fff;border-radius:14px;padding:18px}.calc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.calc label{font-size:12px;color:#c7d7eb}.calc input,.calc select{width:100%;padding:9px;border-radius:7px;border:1px solid #69809e;background:#fff;color:#111827;font-size:14px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}.result{background:#16385e;border:1px solid #365f8e;border-radius:10px;padding:13px}.result strong{display:block;font-size:23px}
-.source-list li{margin-bottom:7px}.version{border-left:3px solid #9aabc0;padding-left:12px;margin:9px 0}.footer{font-size:12px;color:#687386;padding:4px 4px 20px}.author{text-align:center;border-top:1px solid var(--line);padding:18px 24px 30px;color:#687386;font-size:12px}
-@media(max-width:900px){.g4,.g3,.g2,.calc-grid,.results{grid-template-columns:1fr}h1{font-size:31px}table{font-size:12px;display:block;overflow:auto}}
-@media print{nav{display:none}body{background:#fff}header{background:#0b1f3a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}main{padding:12px}section{box-shadow:none;break-inside:avoid}.calc{background:#fff;color:#111;border:1px solid #bbb}.calc label{color:#333}.result{background:#fff;color:#111;border:1px solid #bbb}a{color:#111;text-decoration:none}.author{break-inside:avoid}}
+:root{
+  --bg:#f4f7fb;--paper:#ffffff;--ink:#152238;--muted:#5d6b82;--line:#dfe6ef;
+  --navy:#0b1f3a;--blue:#0b67d1;--teal:#0f766e;--green:#15803d;--amber:#a16207;
+  --red:#b42318;--softblue:#edf5ff;--softgreen:#ecfdf3;--softamber:#fff8e6;--softred:#fff1f1;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+header{background:linear-gradient(135deg,#091a31,#123963);color:white;padding:48px 24px 38px}
+.wrap{max-width:1240px;margin:auto}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.13em;font-weight:700;color:#bcd8ff}
+h1{font-size:38px;line-height:1.12;margin:8px 0 12px}
+.subtitle{font-size:18px;color:#d9e7f7;max-width:900px}
+.meta{margin-top:18px;font-size:13px;color:#b9cce2}
+nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+nav .wrap{display:flex;gap:18px;overflow:auto;padding:11px 24px}
+nav a{white-space:nowrap;text-decoration:none;color:#32455f;font-size:13px;font-weight:650}
+main{padding:28px 24px 60px}
+section{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px;margin:0 0 22px;box-shadow:0 3px 12px rgba(15,23,42,.035)}
+h2{font-size:26px;margin:0 0 14px}
+h3{font-size:19px;margin:22px 0 10px}
+h4{font-size:15px;margin:16px 0 7px}
+p{margin:8px 0 12px}
+.small{font-size:12px;color:var(--muted)}
+.lead{font-size:17px;color:#34455f}
+.grid{display:grid;gap:14px}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{border:1px solid var(--line);border-radius:13px;padding:16px;background:#fff}
+.card h3,.card h4{margin-top:0}
+.metric{font-size:26px;font-weight:800;margin:2px 0}
+.metric-label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.03em}
+.high{background:var(--softgreen);color:var(--green)}
+.med{background:var(--softamber);color:var(--amber)}
+.low{background:#eef2f7;color:#556274}
+.fast{background:var(--softblue);color:var(--blue)}
+.warn{background:var(--softred);color:var(--red)}
+.callout{border-left:4px solid var(--blue);background:var(--softblue);padding:14px 16px;border-radius:8px;margin:12px 0}
+.callout.green{border-color:var(--green);background:var(--softgreen)}
+.callout.amber{border-color:var(--amber);background:var(--softamber)}
+.callout.red{border-color:var(--red);background:var(--softred)}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:12px 0 16px;font-size:13px}
+th{background:#f0f4f9;color:#27364b;text-align:left;font-weight:750;border-top:1px solid var(--line)}
+th,td{padding:10px 11px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);vertical-align:top}
+th:first-child,td:first-child{border-left:1px solid var(--line)}
+tr:first-child th:first-child{border-top-left-radius:9px}
+tr:first-child th:last-child{border-top-right-radius:9px}
+tbody tr:last-child td:first-child{border-bottom-left-radius:9px}
+tbody tr:last-child td:last-child{border-bottom-right-radius:9px}
+ul{margin:8px 0 12px;padding-left:20px}
+li{margin:5px 0}
+a{color:var(--blue)}
+.pillrow{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.pill{background:#eef3f9;border:1px solid #d9e2ec;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:650}
+.score{font-weight:800}
+.num{font-variant-numeric:tabular-nums}
+details{border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin:8px 0;background:#fff}
+summary{cursor:pointer;font-weight:750}
+.priority-row{display:grid;grid-template-columns:42px 1.2fr 1fr .7fr .7fr .8fr;gap:8px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}
+.rank{width:32px;height:32px;border-radius:9px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.calc{background:#0f2038;color:white;border-radius:14px;padding:18px}
+.calc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.calc label{font-size:12px;color:#c7d7eb}
+.calc input,.calc select{width:100%;padding:9px;border-radius:7px;border:1px solid #69809e;background:#fff;color:#101828;font-size:14px}
+.calc .result{background:#16385e;border:1px solid #365c86;border-radius:10px;padding:12px}
+.calc .result strong{display:block;font-size:24px}
+.footer{font-size:12px;color:#667085;padding:0 4px}
+.source-list li{margin-bottom:8px}
+@media(max-width:960px){.grid-4,.grid-3,.grid-2,.calc-grid{grid-template-columns:1fr}.priority-row{grid-template-columns:36px 1fr}.priority-row>*:nth-child(n+3){grid-column:2}h1{font-size:31px}}
+@media print{
+  nav{display:none} body{background:white} section{box-shadow:none;break-inside:avoid-page}
+  a{color:black;text-decoration:none} header{background:#0b1f3a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+.document-attribution{
+  max-width:1240px;margin:0 auto 28px;padding:16px 24px;
+  border-top:1px solid var(--line);color:#667085;font-size:12px;line-height:1.6;
+  text-align:center;
+}
+@media print{
+  .document-attribution{break-inside:avoid;border-top:1px solid #bbb;margin-top:18px}
+}
+
 </style>
 </head>
 <body>
 <header>
-<div class="wrap">
-<div class="kicker">Enterprise EUC / Modern Workplace</div>
-<h1>EUC Operations Optimisation & Licence Engineering Playbook</h1>
-<div class="subtitle">A practical, public-source guide to reducing end-user-computing cost, improving employee experience and removing operational effort without weakening security or creating support debt.</div>
-<div class="meta">Prepared by Anirban Ghosal · Version 1.2 · Current as of 21 September 2026 · Public-source / shareable edition</div>
-</div>
+  <div class="wrap">
+    <div class="kicker">Enterprise EUC / Modern Workplace</div>
+    <h1>EUC Operations Optimisation Playbook</h1>
+    <div class="subtitle">Fact-based ways to reduce end-user-computing cost, improve employee experience, remove operational effort, and engineer Microsoft licensing by persona — without creating support debt or weakening security.</div>
+    <div class="meta">Prepared by Anirban Ghosal · Version 1.1 · Revised 21 September 2026 · Public-source / shareable edition</div>
+  </div>
 </header>
 
-<nav><div class="wrap">
-<a href="#verdict">Verdict</a><a href="#renewal">Renewal first</a><a href="#licensing">Licensing</a><a href="#ai">AI</a><a href="#virtual">W365 / AVD</a><a href="#esu">Windows 10 / 11</a><a href="#hardware">Hardware</a><a href="#ops">Operations</a><a href="#experience">Experience</a><a href="#calc">Calculator</a><a href="#roadmap">90 days</a><a href="#sources">Sources</a>
-</div></nav>
+<nav>
+  <div class="wrap">
+    <a href="#exec">Executive view</a>
+    <a href="#principles">Principles</a>
+    <a href="#licensing">Licensing</a>
+    <a href="#license-engineering">Licence scenarios</a>
+    <a href="#ai">AI in EUC</a>
+    <a href="#virtual">Virtual desktop</a>
+    <a href="#hardware">Hardware & recycle</a>
+    <a href="#ops">Operations effort</a>
+    <a href="#experience">Experience</a>
+    <a href="#roadmap">90-day plan</a>
+    <a href="#calculator">Calculator</a>
+    <a href="#sources">Sources</a>
+  </div>
+</nav>
 
 <main class="wrap">
 
-<section id="verdict">
-<h2>1. The practical verdict</h2>
-<p class="lead">The biggest EUC savings normally come from <b>commercial discipline and matching capability to real need</b>, not from one large technology migration.</p>
-<div class="grid g4">
-<div class="card"><div class="metric-label">1. Commercial</div><div class="metric">Renew / true-down</div><p class="small">Know the renewal date, remove unused seats and resolve duplicate entitlements before price changes hit.</p></div>
-<div class="card"><div class="metric-label">2. Licence</div><div class="metric">Right persona</div><p class="small">F1/F3/E3/E5/E7 should follow work pattern and eligibility, not job title alone.</p></div>
-<div class="card"><div class="metric-label">3. Compute</div><div class="metric">Right-size</div><p class="small">Use Windows 365 sizing evidence and AVD Autoscale before committing spend.</p></div>
-<div class="card"><div class="metric-label">4. Device / Ops</div><div class="metric">Reuse + automate</div><p class="small">Extend healthy devices and automate recurring support or app-lifecycle work.</p></div>
-</div>
-<div class="callout red"><b>Do not optimise by simply downgrading everyone.</b> A saving that creates mailbox limits, app incompatibility, weak security, slower support or licence non-compliance is not a saving.</div>
+<section id="exec">
+  <h2>1. Executive view</h2>
+  <p class="lead">The best EUC optimisation program does not start with a blanket hardware refresh, wholesale licence downgrade, or “move everything to VDI”. It starts by matching <b>entitlement, endpoint, compute and support effort to actual user need</b>.</p>
+
+  <div class="grid grid-4">
+    <div class="card"><div class="metric-label">Core cost test</div><div class="metric">Pay only for use</div><p class="small">Reclaim dormant software, right-size cloud compute, and stop duplicate tooling.</p></div>
+    <div class="card"><div class="metric-label">Core experience test</div><div class="metric">Measure first</div><p class="small">Use real endpoint performance and support data before replacing devices or changing platforms.</p></div>
+    <div class="card"><div class="metric-label">Core effort test</div><div class="metric">Automate repeats</div><p class="small">Every recurring manual packaging, remediation, provisioning or licensing task is a candidate.</p></div>
+    <div class="card"><div class="metric-label">Core governance test</div><div class="metric">No double-pay</div><p class="small">Check bundled Microsoft entitlements before renewing overlapping third-party tools.</p></div>
+  </div>
+
+  <h3>Highest-value opportunities to assess first</h3>
+  <div class="priority-row"><div class="rank">1</div><div><b>Exploit July 2026 Microsoft 365 entitlement changes</b><br><span class="small">E3 now includes Intune Plan 2, Remote Help and Advanced Analytics; E5 adds EPM, Cloud PKI and Enterprise Application Management.</span></div><div><span class="badge high">Cost: High</span></div><div><span class="badge high">UX: High</span></div><div><span class="badge high">Effort: High</span></div><div><span class="badge fast">0–60 days</span></div></div>
+  <div class="priority-row"><div class="rank">2</div><div><b>Run a 90-day licence reclamation cycle</b><br><span class="small">Microsoft 365, Copilot, Adobe, Zoom and other named-user SaaS; validate business exceptions before removal.</span></div><div><span class="badge high">Cost: High</span></div><div><span class="badge low">UX: Neutral</span></div><div><span class="badge med">Effort: Medium</span></div><div><span class="badge fast">0–45 days</span></div></div>
+  <div class="priority-row"><div class="rank">3</div><div><b>Right-size Windows 365 and AVD</b><br><span class="small">Use Cloud PC recommendations, AVD autoscale, Start VM on Connect and Azure Advisor before buying commitment discounts.</span></div><div><span class="badge high">Cost: High</span></div><div><span class="badge high">UX: High</span></div><div><span class="badge med">Effort: Medium</span></div><div><span class="badge fast">0–90 days</span></div></div>
+  <div class="priority-row"><div class="rank">4</div><div><b>Replace age-based hardware refresh with evidence-based lifecycle</b><br><span class="small">Use resource and battery telemetry; repair batteries, redeploy healthy devices, refresh only where data supports it.</span></div><div><span class="badge high">Cost: High</span></div><div><span class="badge high">UX: High</span></div><div><span class="badge med">Effort: Medium</span></div><div><span class="badge fast">30–120 days</span></div></div>
+  <div class="priority-row"><div class="rank">5</div><div><b>Automate recurring support fixes</b><br><span class="small">Use Intune Remediations for repeatable detection/fix patterns; track ticket deflection rather than script count.</span></div><div><span class="badge med">Cost: Medium</span></div><div><span class="badge high">UX: High</span></div><div><span class="badge high">Effort: High</span></div><div><span class="badge fast">0–90 days</span></div></div>
+  <div class="priority-row"><div class="rank">6</div><div><b>Automate application currency</b><br><span class="small">Use Microsoft 365 Apps Cloud Update and, where licensed, Intune Enterprise App Management for supported Win32 apps.</span></div><div><span class="badge med">Cost: Medium</span></div><div><span class="badge med">UX: Medium</span></div><div><span class="badge high">Effort: High</span></div><div><span class="badge fast">30–120 days</span></div></div>
+  <div class="priority-row"><div class="rank">7</div><div><b>Modernise provisioning and device reuse</b><br><span class="small">Use Autopilot/Intune for zero-touch deployment and Autopilot Reset for supported Entra-joined redeployment scenarios.</span></div><div><span class="badge med">Cost: Medium</span></div><div><span class="badge high">UX: High</span></div><div><span class="badge high">Effort: High</span></div><div><span class="badge fast">30–180 days</span></div></div>
+  <div class="priority-row"><div class="rank">8</div><div><b>Remove stale records, policy duplication and legacy management work</b><br><span class="small">Clean Intune reporting, consolidate assignments, and progressively move suitable ConfigMgr workloads to Intune.</span></div><div><span class="badge low">Cost: Low–Med</span></div><div><span class="badge med">UX: Medium</span></div><div><span class="badge high">Effort: High</span></div><div><span class="badge fast">30–180 days</span></div></div>
+
+  <div class="callout green">
+    <b>Practical target state:</b> a persona-based EUC service where every user has the minimum sufficient licence, endpoint and virtual-compute tier; devices are reused safely; recurring support is automated; and refresh/renewal decisions are based on telemetry.
+  </div>
 </section>
 
-<section id="renewal">
-<h2>2. Renewal and true-down should come first</h2>
-<p>Microsoft's July 2026 price changes apply to existing customers at their <b>next renewal after 1 July 2026</b>. Existing customers remain on current pricing until renewal. That makes the renewal calendar a direct optimisation lever. <a href="#s1">[S1]</a> <a href="#s2">[S2]</a></p>
-<table>
-<thead><tr><th>Before renewal</th><th>What to do</th><th>Why it matters</th></tr></thead>
-<tbody>
-<tr><td>120–180 days</td><td>Build the current licence baseline: assigned seats, active use, add-ons, third-party overlap, virtual desktop licences and contract unit rates.</td><td>Stops negotiation from starting with inaccurate quantities.</td></tr>
-<tr><td>90 days</td><td>Run reclaim candidates, persona changes and E3/E5/E7 add-on comparisons. Validate Frontline eligibility separately.</td><td>Separates genuine savings from theoretical list-price deltas.</td></tr>
-<tr><td>60 days</td><td>Agree business exceptions and migration impacts. Confirm support, mailbox, Office, security, Windows and AI requirements.</td><td>Prevents last-minute licence rollback.</td></tr>
-<tr><td>30 days</td><td>True-down where the agreement permits, remove duplicate products and lock the final requirement.</td><td>Turns optimisation into actual contracted saving.</td></tr>
-</tbody>
-</table>
-<div class="callout amber"><b>Important:</b> public list-price differences are useful for comparison, but realised saving depends on EA/MCA/CSP terms, committed quantities, renewal rules, local pricing and discounts.</div>
+<section id="principles">
+  <h2>2. Optimisation principles</h2>
+  <div class="grid grid-3">
+    <div class="card"><h3>Reclaim</h3><p>Unused named-user licences, add-ons, stale Cloud PCs, spare assets and abandoned subscriptions.</p></div>
+    <div class="card"><h3>Right-size</h3><p>Choose the smallest licence/CPU/RAM/storage/device tier that meets the persona and service requirement.</p></div>
+    <div class="card"><h3>Reuse</h3><p>Redeploy healthy endpoints and retain storage media when approved sanitisation can make reuse safe.</p></div>
+    <div class="card"><h3>Automate</h3><p>Provisioning, patching, licensing, app lifecycle, detection/remediation and recurring reporting.</p></div>
+    <div class="card"><h3>Consolidate</h3><p>Remove overlapping tools only after a capability-by-capability fit check, not on brand preference.</p></div>
+    <div class="card"><h3>Measure</h3><p>Track cost per user/device, support demand, startup/app reliability, virtual-compute utilisation and refresh avoidance.</p></div>
+  </div>
+
+  <h3>Three tests for every initiative</h3>
+  <table>
+    <thead><tr><th>Test</th><th>Question</th><th>Evidence</th><th>Reject the initiative when…</th></tr></thead>
+    <tbody>
+      <tr><td><b>Cost</b></td><td>Does it remove recurring spend or prevent future spend?</td><td>Contract rate × licences reclaimed; compute baseline vs actual; hardware refresh avoided.</td><td>“Savings” are only list-price, already committed, or displaced elsewhere.</td></tr>
+      <tr><td><b>Experience</b></td><td>Does it improve or at least preserve user productivity?</td><td>Endpoint Analytics, app reliability, logon/startup time, support contacts, user sentiment.</td><td>It creates slower sign-in, lower app compatibility, more outages or higher support demand.</td></tr>
+      <tr><td><b>Effort</b></td><td>Does it reduce manual work at scale?</td><td>Hours/month removed; packaging count; tickets auto-remediated; zero-touch deployment rate.</td><td>Automation requires more ongoing exception handling than the manual process it replaces.</td></tr>
+    </tbody>
+  </table>
 </section>
 
 <section id="licensing">
-<h2>3. Microsoft licence engineering by persona</h2>
-<p class="small">The public USD prices below are Microsoft commercial list prices effective 1 July 2026 where stated. They are comparison figures, not a substitute for contracted pricing. <a href="#s1">[S1]</a></p>
+  <h2>3. Licence and entitlement optimisation</h2>
+  <div class="callout amber">
+    <b>Renewal timing matters:</b> Microsoft states that existing customers stay on current pricing until their next renewal after 1 July 2026. Run licence reclaim, persona checks and true-down planning <b>before renewal</b>, otherwise a valid saving may not become a contracted saving until the next commercial window. <a href="#s39">[S39]</a>
+  </div>
 
-<table>
-<thead><tr><th>SKU</th><th>2026 public USD</th><th>Best fit</th><th>Main caution</th></tr></thead>
-<tbody>
-<tr><td><b>M365 F1</b></td><td>$3/user/month</td><td>Very light eligible frontline/task worker using Teams/SharePoint and limited Office.</td><td>No Exchange mailbox right; limited Office use. Frontline eligibility rules apply. <a href="#s4">[S4]</a> <a href="#s20">[S20]</a></td></tr>
-<tr><td><b>M365 F3</b></td><td>$10/user/month</td><td>Eligible frontline/shared-device worker needing managed Windows, web/mobile productivity and basic mail.</td><td>Not a generic cheap E3. Frontline assignment conditions apply and capability is lower than E3. <a href="#s4">[S4]</a></td></tr>
-<tr><td><b>O365 E1</b></td><td>$10/user/month</td><td>Web/mobile productivity and enterprise collaboration where endpoint/Windows rights come from elsewhere.</td><td>Do not compare it directly with M365 E3 without adding required EMS/Windows components.</td></tr>
-<tr><td><b>M365 E3</b></td><td>$39/user/month</td><td>Default managed knowledge worker needing desktop Office, Windows Enterprise, Intune and Entra.</td><td>Do not keep paying separately for capabilities now included in E3. <a href="#s1">[S1]</a> <a href="#s7">[S7]</a></td></tr>
-<tr><td><b>M365 E5</b></td><td>$60/user/month</td><td>Users needing broad advanced security, compliance, analytics and related E5 capability.</td><td>Target it. E5 is expensive when advanced features are not actually consumed.</td></tr>
-<tr><td><b>M365 E7</b></td><td>$99/user/month</td><td>E5 users who also genuinely need Microsoft 365 Copilot, Entra Suite and Agent 365.</td><td>Do not make E7 the standard AI licence. E5 + Copilot is cheaper when that is all the user needs. <a href="#s3">[S3]</a> <a href="#s5">[S5]</a></td></tr>
-</tbody>
-</table>
 
-<h3>Simple scenario decisions</h3>
-<table>
-<thead><tr><th>User scenario</th><th>Start with</th><th>Reason</th></tr></thead>
-<tbody>
-<tr><td>No mailbox, limited editing, true task-worker pattern</td><td><b>F1</b></td><td>Lowest-cost Frontline option if Microsoft eligibility conditions are met.</td></tr>
-<tr><td>Shared/shift worker, small-mailbox and web/mobile productivity needs</td><td><b>F3</b></td><td>Can materially reduce cost versus E3, but only where the Frontline assignment rule and capability limits fit.</td></tr>
-<tr><td>Normal corporate laptop/desktop user</td><td><b>E3</b></td><td>Balanced productivity + Windows + identity + endpoint-management baseline.</td></tr>
-<tr><td>E3 user needs only one advanced security/compliance family</td><td><b>E3 + targeted add-on</b></td><td>A targeted Defender or Purview add-on can be cheaper than E5.</td></tr>
-<tr><td>E3 user needs both Defender Suite and Purview Suite</td><td><b>Compare E5</b></td><td>At public list, E3 $39 + Defender $12 + Purview $12 = $63, already above E5 $60. <a href="#s1">[S1]</a></td></tr>
-<tr><td>E5 user needs paid Copilot only</td><td><b>E5 + Copilot</b></td><td>$60 + $30 = $90 versus E7 $99. Do not buy E7 only for Copilot.</td></tr>
-<tr><td>E5 user needs Copilot + Entra Suite + Agent 365</td><td><b>Evaluate E7</b></td><td>Microsoft's published component example is $117 separately versus E7 $99. <a href="#s5">[S5]</a></td></tr>
-</tbody>
-</table>
+  <h3>3.1 Microsoft: check what you already own before buying more</h3>
+  <div class="callout">
+    <b>2026 packaging change:</b> Microsoft states that from July 2026 Microsoft 365 E3 includes <b>Intune Plan 2, Remote Help and Advanced Analytics</b>. Microsoft 365 E5 includes those plus <b>Endpoint Privilege Management, Cloud PKI and Enterprise Application Management</b>. This should trigger a formal duplicate-tool review before renewal. <a href="#s1">[S1]</a> <a href="#s2">[S2]</a>
+  </div>
 
-<h3>Frontline rule that can invalidate the saving</h3>
-<div class="callout amber">Microsoft Product Terms say Frontline Worker licences may only be assigned where the user meets stated conditions, including use of a primary single-screen work device smaller than 10.9 inches, or sharing the primary work device with other Frontline-licensed users during/across shifts. <b>Validate eligibility before moving E3 users to F3.</b> <a href="#s4">[S4]</a></div>
+  <table>
+    <thead><tr><th>Optimisation lever</th><th>What to do</th><th>Potential benefit</th><th>Key control</th></tr></thead>
+    <tbody>
+      <tr><td><b>E3/E5 entitlement overlap review</b></td><td>Map every endpoint-support, DEX, privilege elevation, certificate and Windows app-management product against newly bundled capability.</td><td>Can eliminate duplicate subscription spend and reduce agent/tool sprawl.</td><td>Do a requirements fit-gap: cross-tenant support, macOS/Linux scope, PAM depth, PKI trust model, app catalog coverage, audit requirements.</td></tr>
+      <tr><td><b>Group-based Microsoft licensing</b></td><td>Assign/remove licences through Entra/M365 groups linked to role/persona rather than direct manual assignments.</td><td>Less joiner/mover/leaver effort and fewer stranded licences.</td><td>Watch dependencies, assignment errors and group design; nested groups are not supported for group-based licensing in M365 admin center. <a href="#s3">[S3]</a></td></tr>
+      <tr><td><b>Usage-based reclamation</b></td><td>Compare enabled vs active usage in M365 reports, then reclaim after agreed inactivity threshold and manager/business-owner check.</td><td>Recurring licence reduction.</td><td>Do not treat inactivity alone as proof of non-need; account for leave, seasonal work, service accounts and legal hold. <a href="#s4">[S4]</a></td></tr>
+      <tr><td><b>Copilot licence governance</b></td><td>Use Copilot readiness/usage/adoption reports to identify licensed but inactive cohorts; reassign or target adoption before renewal.</td><td>Protects expensive AI investment from shelfware.</td><td>Measure meaningful use and business outcomes, not prompt volume alone. <a href="#s5">[S5]</a></td></tr>
+      <tr><td><b>Shared-device licensing</b></td><td>Use Shared Computer Activation or device-based Microsoft 365 Apps licensing where the scenario and contract support it.</td><td>Avoids inappropriate user/device activation design and simplifies shared environments.</td><td>Every approach has eligibility requirements; confirm Product Terms and the exact Microsoft 365 Apps SKU. <a href="#s6">[S6]</a></td></tr>
+      <tr><td><b>AVD access-right reuse</b></td><td>Confirm whether users already hold an AVD-eligible Microsoft licence before buying additional desktop-access licensing.</td><td>Avoids duplicate access entitlement.</td><td>Eligibility differs by OS and internal/external user scenario. <a href="#s7">[S7]</a></td></tr>
+    </tbody>
+  </table>
 
-<h3>Intune: do not buy the whole Suite by habit</h3>
-<p>From July 2026, Microsoft 365 E3 receives <b>Remote Help, Advanced Analytics and Intune Plan 2</b>. E5 receives those plus <b>Endpoint Privilege Management, Cloud PKI and Enterprise Application Management</b>. Microsoft still sells advanced modules individually. <a href="#s7">[S7]</a></p>
-<table>
-<thead><tr><th>Need</th><th>Better first question</th></tr></thead>
-<tbody>
-<tr><td>E3 user only needs EPM</td><td>Price EPM alone before buying the complete Intune Suite or moving the user to E5.</td></tr>
-<tr><td>E3 user needs EPM + Cloud PKI + EAM</td><td>Compare individual add-ons, full Intune Suite and E5 using contracted rates and the wider E5 value.</td></tr>
-<tr><td>E3 tenant already owns Remote Help / Advanced Analytics separately</td><td>Review duplicate subscriptions now that those capabilities are included in E3.</td></tr>
-</tbody>
-</table>
+  <h3>3.2 Non-Microsoft SaaS: apply the same control</h3>
+  <table>
+    <thead><tr><th>Product pattern</th><th>Supported administrative capability</th><th>Optimisation action</th></tr></thead>
+    <tbody>
+      <tr><td><b>Adobe named-user products</b></td><td>Adobe Admin Console supports removing a product assignment; the licence then becomes available for reassignment. <a href="#s8">[S8]</a></td><td>Quarterly inactive-user review; reclaim before buying additional seats; transfer business assets before deleting users.</td></tr>
+      <tr><td><b>Adobe shared-device licences</b></td><td>Adobe supports recovering shared-device licences from retired/inaccessible machines. <a href="#s9">[S9]</a></td><td>Include licence recovery in device-retirement runbook so retired hardware does not strand entitlements.</td></tr>
+      <tr><td><b>Zoom licences/add-ons</b></td><td>Zoom admins can assign and unassign Workplace licences and add-ons individually or in bulk. <a href="#s10">[S10]</a></td><td>Reclaim Webinar/Large Meeting/Phone/add-ons where no longer used; protect event/hub ownership before removal.</td></tr>
+      <tr><td><b>Other SaaS</b></td><td>Use the vendor's admin/usage/identity API where available.</td><td>Standardise 30/60/90-day inactivity review, owner validation, reclaim, and renewal forecast.</td></tr>
+    </tbody>
+  </table>
 
-<h3>Teams / no-Teams</h3>
-<p>For M365 E3 and E5, the public-list difference between with-Teams and no-Teams SKUs is $8.55. If an organisation removes Teams and then purchases a standalone equivalent, the saving can disappear. Use no-Teams only where Teams is genuinely not required or another platform is already the standard. <a href="#s1">[S1]</a></p>
+  <h3>3.3 A practical licence-control model</h3>
+  <div class="grid grid-4">
+    <div class="card"><div class="metric-label">1</div><h4>Entitlement inventory</h4><p class="small">SKU, contract, unit rate, renewal date, true-up rules, owner.</p></div>
+    <div class="card"><div class="metric-label">2</div><h4>Assignment inventory</h4><p class="small">Who has what; direct vs group-based; add-ons and dependencies.</p></div>
+    <div class="card"><div class="metric-label">3</div><h4>Usage evidence</h4><p class="small">30/60/90/180-day usage, active device or feature consumption.</p></div>
+    <div class="card"><div class="metric-label">4</div><h4>Action</h4><p class="small">Keep, downgrade, reassign, reclaim, consolidate, or exception.</p></div>
+  </div>
+
+  <div class="callout amber">
+    <b>Important:</b> licence optimisation is not the same as “downgrade everyone”. E5/E3 bundles can provide security, compliance and endpoint rights that are not visible in a simple app-usage report. Validate dependency and contractual rights before removal.
+  </div>
 </section>
 
+
+<section id="license-engineering">
+  <h2>3A. Microsoft licence engineering — where material savings can actually come from</h2>
+
+  <div class="callout red">
+    <b>Verdict:</b> licensing everyone with the same Microsoft 365 SKU is administratively easy but financially weak. The defensible model is persona-based: <b>F1/F3 for eligible frontline workers, E3 as the standard information-worker baseline, E5 only for cohorts that consume its security/compliance/analytics/voice value, and E7 only where E5 + Copilot + advanced Entra/agent governance is genuinely required.</b>
+  </div>
+
+  <p class="small">Indicative public list prices below are Microsoft commercial USD prices effective 1 July 2026, annual commitment, before tax. Your EA/MCA/CSP pricing can be materially different. Use the logic, then substitute contracted rates.</p>
+
+  <h3>2026 core SKU view</h3>
+  <table>
+    <thead><tr><th>SKU</th><th>Public list</th><th>Best-fit user</th><th>Important limitations / value</th><th>Optimisation view</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Microsoft 365 F1</b></td><td class="num">$3/user/mo</td>
+        <td>Very light frontline/task worker: communication, access to information, limited productivity.</td>
+        <td>No Exchange mailbox rights; Office web/mobile is read-only; 2 GB cloud storage. Frontline assignment eligibility rules apply. <a href="#s33">[S33]</a> <a href="#s34">[S34]</a></td>
+        <td><span class="badge high">Very low cost</span><br>Use only where the user genuinely does not need a mailbox, editable Office experience, Windows Enterprise rights or a Cloud PC base entitlement.</td>
+      </tr>
+      <tr>
+        <td><b>Microsoft 365 F3</b></td><td class="num">$10/user/mo</td>
+        <td>Frontline/shared-device worker needing basic email, editable web/mobile Office, Intune/Entra and Windows Enterprise.</td>
+        <td>2 GB mailbox; no Outlook desktop; no archive mailbox or delegate access; no desktop Office apps. Windows Enterprise E3 is included, but F3 Windows rights do not include Windows Autopatch. Frontline eligibility rules apply. <a href="#s33">[S33]</a> <a href="#s35">[S35]</a> <a href="#s36">[S36]</a></td>
+        <td><span class="badge high">Major opportunity</span><br>Potentially very strong for eligible field, retail, warehouse, site, shift and shared-device personas currently over-licensed with E3/E5.</td>
+      </tr>
+      <tr>
+        <td><b>Office 365 E1</b></td><td class="num">$10/user/mo</td>
+        <td>Web/mobile productivity user who needs enterprise email/collaboration but not desktop Office or Microsoft endpoint stack.</td>
+        <td>Web/mobile Office; no Windows Enterprise, Intune or Entra P1 bundle. <a href="#s37">[S37]</a></td>
+        <td><span class="badge med">Niche</span><br>Useful where endpoint/identity rights are supplied separately or not required. Do not assume it is a substitute for M365 E3.</td>
+      </tr>
+      <tr>
+        <td><b>Office 365 E3</b></td><td class="num">$26/user/mo</td>
+        <td>Information worker needing desktop Office and enterprise mail, but Microsoft endpoint/Windows/EMS bundle is not required.</td>
+        <td>Productivity suite only; endpoint/identity/Windows rights must be sourced separately where required. <a href="#s37">[S37]</a></td>
+        <td><span class="badge med">Selective</span><br>Can avoid paying for M365 components you do not need, but becomes poor value if you then separately buy EMS + Windows.</td>
+      </tr>
+      <tr>
+        <td><b>Microsoft 365 E3</b></td><td class="num">$39/user/mo</td>
+        <td>Standard managed enterprise knowledge worker.</td>
+        <td>Office 365 E3 + EMS E3 + Windows Enterprise E3. From 2026 also adds Defender for Office P1, Intune Remote Help, Advanced Analytics and Intune Plan 2. <a href="#s38">[S38]</a> <a href="#s39">[S39]</a></td>
+        <td><span class="badge high">Default baseline</span><br>Usually the economic sweet spot once desktop Office + enterprise Windows + Intune/Entra are all required.</td>
+      </tr>
+      <tr>
+        <td><b>Microsoft 365 E5</b></td><td class="num">$60/user/mo</td>
+        <td>High-risk, regulated, advanced security/compliance/analytics/telephony or privileged user.</td>
+        <td>Includes E3 plus advanced Defender/Purview/identity capabilities, Power BI, Teams Phone rights and, from 2026, Security Copilot plus Intune EPM, Cloud PKI and Enterprise App Management. <a href="#s39">[S39]</a> <a href="#s40">[S40]</a></td>
+        <td><span class="badge med">Targeted</span><br>Do not blanket-license E5. Use where advanced features displace separate products or materially reduce risk/effort.</td>
+      </tr>
+      <tr>
+        <td><b>Microsoft 365 E7</b></td><td class="num">$99/user/mo</td>
+        <td>AI-heavy / agent-enabled users who also need the E5 stack and advanced identity/network/agent governance.</td>
+        <td>Microsoft Product Terms define E7 as E5 components plus Microsoft 365 Copilot, Microsoft Agent 365 and Microsoft Entra Suite. <a href="#s41">[S41]</a></td>
+        <td><span class="badge warn">Do not make default</span><br>Strong consolidation value only where these extra capabilities would otherwise be bought separately.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Persona decision matrix</h3>
+  <table>
+    <thead><tr><th>User scenario</th><th>Start with</th><th>Why</th><th>Do not use when…</th></tr></thead>
+    <tbody>
+      <tr><td>Task worker; no personal mailbox; mainly Teams/SharePoint/instructions; read-only Office is enough</td><td><b>F1</b></td><td>Lowest-cost frontline tier.</td><td>User needs editable Office, personal business email, Windows Enterprise, Windows 365 base rights or desktop Office.</td></tr>
+      <tr><td>Shared/shift worker; small mailbox; web Office; managed Windows/shared device</td><td><b>F3</b></td><td>Combines frontline productivity, Intune/Entra and Windows E3 rights at a much lower list price than E3.</td><td>User fails Microsoft Frontline eligibility or needs full desktop Office / larger mailbox / archive / delegate access.</td></tr>
+      <tr><td>Web-only information worker on a fully managed Windows device</td><td><b>O365 E1 + EMS E3 + Windows E3</b></td><td>Can be cheaper than M365 E3 if desktop Office is truly unnecessary.</td><td>Desktop Office is required; once Microsoft 365 Apps is added, the economics normally move back toward M365 E3.</td></tr>
+      <tr><td>Normal corporate laptop/desktop user</td><td><b>M365 E3</b></td><td>Balanced productivity + identity + endpoint + Windows bundle.</td><td>A genuine frontline or lightweight persona can use a lower tier, or a specialist user needs E5 capability.</td></tr>
+      <tr><td>E3 user needs only one advanced security or compliance family</td><td><b>E3 + targeted add-on</b></td><td>Can be cheaper than moving the whole cohort to E5.</td><td>The user requires multiple E5 domains; suite economics may become better.</td></tr>
+      <tr><td>Regulated/high-risk user needs both advanced Defender and Purview capability</td><td><b>Compare E5 directly</b></td><td>At public list price, E3 + Defender Suite + Purview Suite is already above E5.</td><td>Only one advanced suite is actually needed.</td></tr>
+      <tr><td>E5 user needs Microsoft 365 Copilot only</td><td><b>E5 + Copilot</b></td><td>Public list = $90/user/month versus E7 at $99.</td><td>User also needs Entra Suite or Agent 365; E7 economics then change.</td></tr>
+      <tr><td>E5 + Copilot user also needs Entra Suite and/or Agent 365</td><td><b>Evaluate E7</b></td><td>E7 can be cheaper than stacking these products separately.</td><td>AI/agent and Entra advanced capabilities are not genuinely consumed.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Concrete list-price economics</h3>
+  <table>
+    <thead><tr><th>Design choice</th><th>Monthly public list</th><th>Difference</th><th>Practical conclusion</th></tr></thead>
+    <tbody>
+      <tr><td><b>E3 → F3</b></td><td>$39 → $10</td><td><b>$29/user/mo lower</b></td><td>Potentially $348,000/year per 1,000 users — but only if users meet Frontline eligibility and the F3 capability limits fit.</td></tr>
+      <tr><td><b>F3 → F1</b></td><td>$10 → $3</td><td><b>$7/user/mo lower</b></td><td>Potentially $84,000/year per 1,000 users where mailbox/editing/Windows rights are not needed.</td></tr>
+      <tr><td><b>E5 → E3</b></td><td>$60 → $39</td><td><b>$21/user/mo lower</b></td><td>$252,000/year per 1,000 users. This is the biggest obvious review if E5 features are not consumed.</td></tr>
+      <tr><td><b>E3 + Defender Suite</b></td><td>$39 + $12 = $51</td><td><b>$9 below E5</b></td><td>If Defender is the only E5-class need, targeted add-on can beat E5.</td></tr>
+      <tr><td><b>E3 + Purview Suite</b></td><td>$39 + $12 = $51</td><td><b>$9 below E5</b></td><td>Same logic for compliance-heavy users who do not need the wider E5 stack.</td></tr>
+      <tr><td><b>E3 + Defender + Purview</b></td><td>$39 + $12 + $12 = $63</td><td><b>$3 above E5</b></td><td>At public list, E5 becomes cheaper before even valuing its additional capabilities. <a href="#s42">[S42]</a></td></tr>
+      <tr><td><b>E3 + targeted Intune modules</b></td><td>Depends on modules required</td><td><b>Compare before E5</b></td><td>E3 already includes Intune Plan 2, Remote Help and Advanced Analytics in 2026. If the gap is EPM, Cloud PKI or Enterprise App Management, price only the missing modules first; then compare that total with E5. Do not buy the full Intune Suite by habit. <a href="#s43">[S43]</a></td></tr>
+      <tr><td><b>E5 + Copilot</b></td><td>$60 + $30 = $90</td><td><b>$9 below E7</b></td><td>If Copilot is the only E7 addition required, stay E5 + Copilot. <a href="#s44">[S44]</a></td></tr>
+      <tr><td><b>E5 + Copilot + Entra Suite</b></td><td>$60 + $30 + $12 = $102</td><td><b>E7 is $3 lower</b></td><td>If all three are really needed, E7 starts to make economic sense. <a href="#s45">[S45]</a></td></tr>
+      <tr><td><b>E5 + Copilot + Agent 365</b></td><td>$60 + $30 + $15 = $105</td><td><b>E7 is $6 lower</b></td><td>E7 can be cheaper even before valuing Entra Suite. <a href="#s46">[S46]</a></td></tr>
+      <tr><td><b>E5 + Copilot + Entra Suite + Agent 365</b></td><td>$117</td><td><b>E7 is $18 lower</b></td><td>This is the strongest pure list-price E7 consolidation case.</td></tr>
+      <tr><td><b>O365 E1 + EMS E3 + Windows E3</b></td><td>$10 + $12 + $7.63 = $29.63</td><td><b>$9.37 below M365 E3</b></td><td>Interesting for a true web-only enterprise persona. Add desktop Apps ($14) and it becomes $43.63 — more than M365 E3. <a href="#s47">[S47]</a></td></tr>
+      <tr><td><b>O365 E3 + EMS E3 + Windows E3</b></td><td>$26 + $12 + $7.63 = $45.63</td><td><b>$6.63 above M365 E3</b></td><td>If you need all three components, the M365 E3 bundle is cheaper at public list.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Teams versus no-Teams SKUs</h3>
+  <table>
+    <thead><tr><th>Choice</th><th>2026 list-price delta</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>M365 E3 with Teams $39 vs no-Teams $30.45</td><td>$8.55</td><td>If you then buy Teams Enterprise standalone at $8.55, the public-list total is effectively the same. No-Teams is a saving only when Teams is genuinely not required or another platform is already the strategic standard. <a href="#s48">[S48]</a></td></tr>
+      <tr><td>M365 E5 with Teams $60 vs no-Teams $51.45</td><td>$8.55</td><td>Same logic.</td></tr>
+      <tr><td>F3 with Teams $10 vs no-Teams $8.93</td><td>$1.07</td><td>For frontline users who need Teams, buying the with-Teams F3 SKU is materially cheaper than no-Teams + Teams Enterprise standalone.</td></tr>
+      <tr><td>F1 with Teams $3 vs no-Teams $2.50</td><td>$0.50</td><td>Do not remove Teams from F1 simply to save $0.50 if Teams is central to the frontline workflow.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Frontline licensing: the restriction that can invalidate a savings proposal</h3>
+  <div class="callout amber">
+    Microsoft Product Terms state that Frontline Worker licences may only be assigned where the user satisfies the Frontline eligibility conditions, including use of a primary work device with a single screen smaller than 10.9 inches, or sharing the primary work device with other Frontline-licensed users during/across shifts. <b>F3 is not a generic cheap E3.</b> Validate entitlement eligibility with your licensing team before any migration. <a href="#s34">[S34]</a>
+  </div>
+
+  <h3>Frontline users who need stronger security</h3>
+  <p>Do not automatically promote an eligible F3 worker to E5 simply because they need stronger security or compliance. Microsoft provides Frontline-specific Defender/Purview security suites and F5 security/compliance offers with F1/F3 prerequisites. That can preserve the Frontline productivity model while adding targeted controls. Use current contract pricing rather than historical public F5 prices. <a href="#s49">[S49]</a></p>
+
+  <h3>Windows 365 licensing optimisation for shift workers</h3>
+  <div class="callout green">
+    <b>Example:</b> for three eligible F3 workers who never use a Cloud PC concurrently, three F3 licences cost $30/month in total. One Windows 365 Flex 2 vCPU / 4 GB / 64 GB licence is $42/month and can support up to three dedicated Cloud PCs with only one active at a time. Total = <b>$72/month for the three workers</b>, before tax/contract discount. Three equivalent Windows 365 Enterprise Cloud PCs at $28 each plus three F3 licences would be $114/month. In that exact non-concurrent pattern, Flex is $42/month lower across the three users. <a href="#s50">[S50]</a> <a href="#s51">[S51]</a>
+  </div>
+  <p class="small">This is not a universal saving: Flex concurrency limits must match the work pattern, and every Cloud PC user still needs the prerequisite Windows Enterprise, Intune and Entra ID P1 rights. F3 is one qualifying base licence; F1 by itself is not listed as a qualifying base for Windows 365 Enterprise/Flex. <a href="#s52">[S52]</a></p>
+
+  <h3>Licence architecture I would use as the starting hypothesis</h3>
+  <div class="grid grid-4">
+    <div class="card"><div class="metric-label">Frontline light</div><div class="metric">F1</div><p class="small">Only where no mailbox/editing/Windows rights are needed and Frontline eligibility is met.</p></div>
+    <div class="card"><div class="metric-label">Frontline managed</div><div class="metric">F3</div><p class="small">Shared/shift/mobile workforce needing managed Windows, small mailbox and web productivity.</p></div>
+    <div class="card"><div class="metric-label">Knowledge worker</div><div class="metric">E3</div><p class="small">Default enterprise baseline. Add targeted capabilities only where justified.</p></div>
+    <div class="card"><div class="metric-label">High control / AI</div><div class="metric">E5 / E7</div><p class="small">E5 for advanced security/compliance cohorts; E7 for E5 + Copilot + Entra/agent-governance cohorts.</p></div>
+  </div>
+
+  <h3>What to pull from the tenant before changing a single licence</h3>
+  <ul>
+    <li>Assigned Microsoft SKU and service plans per user.</li>
+    <li>Job role, worker type, primary device model/ownership and whether the device is shared.</li>
+    <li>Mailbox size, archive/delegate usage, Outlook desktop use and Office desktop activation.</li>
+    <li>Teams active use, Phone System usage, Power BI Pro activity and Copilot usage.</li>
+    <li>Intune-managed devices, Windows Enterprise requirement, Windows 365/AVD access needs.</li>
+    <li>Defender, Purview, Entra P2, EPM, Cloud PKI, EAM and other E5/E7 feature consumption.</li>
+    <li>Third-party products that could be displaced by Microsoft entitlement — and the reverse: Microsoft features that are not adequate to replace the third-party product.</li>
+    <li>Contracted unit price and renewal/true-up date. <b>Public list-price savings are not realised savings until the agreement quantity or billing changes.</b></li>
+  </ul>
+
+  <div class="callout amber">
+    <b>Agent 365 licensing check:</b> do not treat Agent 365 as a simple add-on to M365 E3 alone. Microsoft documents qualifying enterprise paths including M365 E5 directly, or M365 E3 (or O365 E3 + EMS E3) together with both Defender Suite and Purview Suite, plus Agent 365. E7 already includes the required E5 foundation and Agent 365. <a href="#s46">[S46]</a>
+  </div>
+</section>
+
+
 <section id="ai">
-<h2>4. AI in EUC — only where it reduces cost or effort</h2>
-<p class="lead">AI belongs in this playbook only when it changes a licence decision, lowers support effort, or improves endpoint operations. It should not become a generic AI strategy section.</p>
+  <h2>3B. AI in EUC — use it where it saves licence cost or support effort</h2>
+  <p class="lead">AI is relevant to EUC when it changes a licence decision, shortens troubleshooting, or helps find wasted Cloud PC capacity. Keep it practical.</p>
 
-<table>
-<thead><tr><th>Practical EUC use</th><th>What to do</th><th>Value</th></tr></thead>
-<tbody>
-<tr><td><b>Use included Copilot Chat first</b></td><td>For light AI users, start with Copilot Chat already available with eligible Microsoft 365 subscriptions before assigning a paid Microsoft 365 Copilot seat. <a href="#s6">[S6]</a></td><td>Avoids turning occasional AI use into a $30/user/month licence.</td></tr>
-<tr><td><b>Review paid Copilot seats</b></td><td>Use Microsoft 365 readiness and usage reports every 60–90 days. Keep, coach or reclaim licences based on meaningful use and business need. <a href="#s8">[S8]</a></td><td>Controls AI shelfware.</td></tr>
-<tr><td><b>Use AI for Intune troubleshooting</b></td><td>Where entitled, use Copilot in Intune to summarize devices, compare a healthy and unhealthy device, analyse error codes, show policies/apps/groups and investigate Cloud PC issues. <a href="#s9">[S9]</a></td><td>Reduces portal hunting and support investigation time.</td></tr>
-<tr><td><b>Use AI to find W365 waste</b></td><td>Use Windows 365/Intune Copilot insights to identify underused Cloud PCs and downgrade candidates, then validate before changing licence size. <a href="#s10">[S10]</a></td><td>Connects AI directly to Cloud PC cost control.</td></tr>
-<tr><td><b>Keep Agent 365 specialist</b></td><td>Agent 365 standalone is not an E3-alone add-on path. Microsoft documents qualifying paths including E5 directly, or Microsoft 365 with both Defender Suite and Purview Suite, plus Agent 365. <a href="#s5">[S5]</a></td><td>Prevents invalid licence assumptions and unnecessary E7 deployment.</td></tr>
-</tbody>
-</table>
+  <table>
+    <thead><tr><th>Use case</th><th>What to do</th><th>Actual value</th><th>Control</th></tr></thead>
+    <tbody>
+      <tr><td><b>Light AI user</b></td><td>Start with Copilot Chat where the user's Microsoft 365 licence is eligible. Buy paid Microsoft Copilot only when deeper work-data grounding and richer Microsoft 365 integration are justified. <a href="#s53">[S53]</a></td><td>Avoid giving every occasional AI user a paid Copilot seat.</td><td>Define a paid-Copilot persona and review it quarterly.</td></tr>
+      <tr><td><b>Paid Copilot licences</b></td><td>Review readiness and usage every 60–90 days. Keep, coach or reclaim seats based on meaningful use and business need. <a href="#s54">[S54]</a></td><td>Reduces expensive AI shelfware.</td><td>Do not reclaim only because a user had a short inactive period; validate role and leave/seasonal exceptions.</td></tr>
+      <tr><td><b>Intune troubleshooting</b></td><td>Where entitled, use Copilot in Intune to summarise a device, compare a healthy and unhealthy device, inspect apps/policies/groups and analyse error codes. <a href="#s55">[S55]</a></td><td>Less portal hunting and faster first-pass troubleshooting.</td><td>RBAC and scope tags still control what the admin can see.</td></tr>
+      <tr><td><b>Windows 365 optimisation</b></td><td>Use Copilot in Intune for Windows 365 to surface performance, connectivity, utilisation and licence-management insights, then validate resizing before changing Cloud PC size. <a href="#s56">[S56]</a></td><td>Connects AI directly to Cloud PC cost and experience.</td><td>Pilot resize on a small cohort before bulk change.</td></tr>
+      <tr><td><b>Agent 365 / E7</b></td><td>Use only for cohorts that genuinely need agent governance and meet the licensing prerequisites; do not make E7 the default AI licence. <a href="#s46">[S46]</a></td><td>Avoids paying for agent/identity capability that is not used.</td><td>Re-underwrite E7 against E5 + required add-ons at renewal.</td></tr>
+    </tbody>
+  </table>
 
-<div class="callout green"><b>Simple AI licence rule:</b> use what is already included first → add paid Copilot where the work pattern justifies it → use E7/Agent 365 only where advanced agent governance and identity/security capability are genuinely needed → review use each quarter.</div>
-
-<p>Microsoft also added 2026 Copilot Chat enhancements to enterprise suites, including inbox/calendar awareness and access to Word, Excel and PowerPoint agents. This strengthens the case for an <b>included-AI persona</b> before a paid-Copilot persona. <a href="#s1">[S1]</a></p>
+  <div class="callout green"><b>Simple AI rule:</b> use included capability first → add paid Copilot where work patterns justify it → use E7/Agent 365 only for genuine advanced requirements → review usage every quarter.</div>
 </section>
 
 <section id="virtual">
-<h2>5. Windows 365 and Azure Virtual Desktop</h2>
-<table>
-<thead><tr><th>Work pattern</th><th>Starting option</th><th>Cost / design logic</th></tr></thead>
-<tbody>
-<tr><td>Persistent personal desktop, predictable full-time use</td><td><b>Windows 365 Enterprise</b></td><td>Fixed-price Cloud PC; use recommendations and resize evidence before choosing higher tiers. <a href="#s11">[S11]</a></td></tr>
-<tr><td>Non-concurrent / shift / seasonal use</td><td><b>Windows 365 Flex</b></td><td>Evaluate dedicated/shared Flex where concurrency rules match the pattern. Do not assume every named user needs a permanently active Cloud PC.</td></tr>
-<tr><td>Large shared concurrent workforce</td><td><b>AVD pooled multi-session</b></td><td>Can provide better density and elastic compute, but operational complexity is higher.</td></tr>
-<tr><td>Specialist / bespoke persistent workload</td><td><b>W365 high tier or AVD personal</b></td><td>Choose on performance, app compatibility, support model and economics rather than platform preference.</td></tr>
-</tbody>
-</table>
+  <h2>4. Windows 365, AVD and virtual-compute optimisation</h2>
+  <p>Use virtual desktops where they solve a defined business need: secure contractor access, short-duration access, pooled shift work, specialised apps, high-change projects, BYOD, DR, or remote compute. Do not treat virtualisation as automatically cheaper than a well-managed physical device.</p>
 
-<h3>AVD cost control</h3>
-<ul>
-<li>Use <b>AVD Autoscale scaling plans</b> rather than the older Automation/Logic Apps scaling tool for normal deployments. Microsoft describes Autoscale as AVD's native service and recommends it for easier configuration. <a href="#s12">[S12]</a></li>
-<li>Use <b>Start VM on Connect</b> where the user-experience trade-off is acceptable; powered-off hosts take longer to become available. <a href="#s13">[S13]</a></li>
-<li>Monitor Autoscale operations and tune thresholds rather than treating a scaling plan as set-and-forget. <a href="#s14">[S14]</a></li>
-<li>Right-size first. Only then evaluate reservations/savings commitments against the stable baseline.</li>
-</ul>
+  <h3>4.1 Choose the operating model by user pattern</h3>
+  <table>
+    <thead><tr><th>Pattern</th><th>Best-fit starting point</th><th>Why</th><th>Cost risk</th></tr></thead>
+    <tbody>
+      <tr><td>Persistent personal desktop, predictable use</td><td><b>Windows 365 Enterprise</b></td><td>Fixed per-user/per-month Cloud PC; simple operational model and Intune management. <a href="#s11">[S11]</a></td><td>Paying full fixed licence for users who rarely need the Cloud PC.</td></tr>
+      <tr><td>Non-concurrent workers, short daily use, shift/contractor scenarios</td><td><b>Windows 365 Flex</b> (formerly Frontline)</td><td>Dedicated mode can provision up to three nonconcurrent Cloud PCs per licence; Shared mode provides one Cloud PC shared nonconcurrently. <a href="#s12">[S12]</a></td><td>Underestimating concurrency can create access pressure; prerequisite Windows/Intune/Entra licensing still applies.</td></tr>
+      <tr><td>Large shared/concurrent workforce, variable demand</td><td><b>AVD pooled multi-session</b></td><td>Windows multi-session can host multiple concurrent interactive sessions; compute can scale with demand. <a href="#s13">[S13]</a></td><td>Poor scaling/session density leaves VMs running idle or causes UX degradation.</td></tr>
+      <tr><td>Persistent high-performance or bespoke app desktop</td><td><b>AVD personal or Windows 365 higher tier</b></td><td>Dedicated resources and profile persistence.</td><td>Oversized CPU/RAM/GPU and 24x7 compute.</td></tr>
+      <tr><td>Only one or two remote apps are required</td><td><b>AVD RemoteApp / Windows 365 Cloud Apps where suitable</b></td><td>Can avoid delivering a full desktop where users only need specific applications.</td><td>Application compatibility and user-workflow constraints.</td></tr>
+    </tbody>
+  </table>
 
-<h3>Windows 365 right-sizing</h3>
-<p>Microsoft documents Cloud PC sizing recommendations and Enterprise bulk resize. Use observed performance and under-utilisation evidence; pilot downsizing on a small cohort before bulk change. <a href="#s11">[S11]</a> <a href="#s15">[S15]</a></p>
-</section>
+  <h3>4.2 Windows 365 optimisation</h3>
+  <table>
+    <thead><tr><th>Lever</th><th>Action</th><th>Benefit</th><th>Evidence / limitation</th></tr></thead>
+    <tbody>
+      <tr><td><b>Right-size Cloud PCs</b></td><td>Use Cloud PC recommendation and resource-performance data; resize CPU/RAM down when sustained need is lower.</td><td>Direct fixed-license tier saving without reprovisioning in supported scenarios.</td><td>Windows 365 recommendations analyse usage/resource patterns; resizing supports CPU/RAM downgrade, but storage downsizing is restricted. <a href="#s14">[S14]</a> <a href="#s15">[S15]</a></td></tr>
+      <tr><td><b>Move suitable users to Flex</b></td><td>Identify users who do not require simultaneous/persistent access.</td><td>More users can be served per licence in the right nonconcurrent pattern.</td><td>Dedicated: up to 3 Cloud PCs / 1 concurrent session; Shared: 1 Cloud PC / 1 concurrent session. <a href="#s12">[S12]</a></td></tr>
+      <tr><td><b>Remove orphaned Cloud PCs/licences</b></td><td>Link offboarding to W365 group/licence removal and Cloud PC deprovisioning control.</td><td>Stops fixed monthly spend after the business need ends.</td><td>Protect required user data before deprovisioning.</td></tr>
+      <tr><td><b>Persona sizing</b></td><td>Define light, standard, power, developer/GPU tiers; require evidence for exceptions.</td><td>Stops “one large size fits all”.</td><td>Revalidate after application or work-pattern changes.</td></tr>
+    </tbody>
+  </table>
 
-<section id="esu">
-<h2>6. Windows 10 ESU and Windows 11 eligibility</h2>
-<p class="lead">In September 2026 this is a direct lifecycle and cost issue, not a future-planning topic.</p>
-<p>Windows 10 ESU Year 1 ends on <b>13 October 2026</b>. Microsoft lists Year 2 ending 12 October 2027 and Year 3 ending 10 October 2028. ESU provides security updates; it does not extend normal product support or add new features. <a href="#s16">[S16]</a></p>
-<table>
-<thead><tr><th>Device state</th><th>Decision</th><th>Optimisation logic</th></tr></thead>
-<tbody>
-<tr><td>Windows 11 capable + healthy hardware</td><td><b>Upgrade</b></td><td>Avoid unnecessary refresh and ESU cost.</td></tr>
-<tr><td>Windows 11 capable but resource-constrained</td><td><b>Measure first</b></td><td>Use CPU/RAM/battery/app data to decide whether upgrade, repair or replacement is justified.</td></tr>
-<tr><td>Not Windows 11 capable + important workload</td><td><b>Refresh or controlled ESU bridge</b></td><td>Use ESU as a time-bound exception, not an indefinite hardware strategy.</td></tr>
-<tr><td>Not capable + low-value / redundant device</td><td><b>Retire / consolidate</b></td><td>Do not spend ESU or replacement money where the device/service is no longer required.</td></tr>
-</tbody>
-</table>
-<div class="callout red"><b>Do not use device age alone.</b> Windows 11 eligibility, supportability, actual performance, battery health, repair history, security risk and user workload should all influence the decision.</div>
+  <h3>4.3 AVD optimisation</h3>
+  <table>
+    <thead><tr><th>Lever</th><th>Action</th><th>Benefit</th><th>Key fact</th></tr></thead>
+    <tbody>
+      <tr><td><b>Autoscale pooled hosts</b></td><td>Use native AVD scaling plans to power hosts on/off; consider dynamic autoscaling where supported.</td><td>Removes idle compute outside demand periods.</td><td>AVD native autoscale is the recommended scaling approach for easier configuration. <a href="#s16">[S16]</a></td></tr>
+      <tr><td><b>Start VM on Connect</b></td><td>For personal or low-use pools, power on only when a user actually connects.</td><td>Reduces runtime for rarely used desktops.</td><td>User connection is slower when a powered-off VM has to start. <a href="#s17">[S17]</a></td></tr>
+      <tr><td><b>Right-size first</b></td><td>Use utilisation and Azure Advisor; remove/resize idle capacity.</td><td>Immediate saving and better commitment sizing.</td><td>Microsoft recommends rightsizing/shutdown before reservation or savings-plan decisions. <a href="#s18">[S18]</a></td></tr>
+      <tr><td><b>Commit only stable baseline</b></td><td>After right-sizing, evaluate reservations/savings plans against steady compute.</td><td>Lower unit compute cost.</td><td>Commitment discount does not fix oversized or unnecessary compute.</td></tr>
+      <tr><td><b>Session density</b></td><td>Test actual workload to set max sessions per host and load-balancing strategy.</td><td>Fewer VMs for the same user demand.</td><td>Density that is too aggressive harms user experience; test CPU, RAM, storage and app contention.</td></tr>
+      <tr><td><b>Multi-session where valid</b></td><td>Use Windows 11 Enterprise multi-session for compatible shared workloads.</td><td>Multiple concurrent sessions can share a VM and eligible per-user Windows entitlement.</td><td>Application support and profile design still need validation. <a href="#s13">[S13]</a></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout red">
+    <b>Avoid:</b> buying a 1- or 3-year compute commitment against today's oversized AVD estate. Microsoft Advisor guidance explicitly sequences <b>right-size/shutdown first</b>, then reservation, then savings plan.
+  </div>
 </section>
 
 <section id="hardware">
-<h2>7. Hardware lifecycle, reuse and asset recycling</h2>
-<table>
-<thead><tr><th>Evidence</th><th>Action</th></tr></thead>
-<tbody>
-<tr><td>Good CPU/RAM, healthy battery, supported OS</td><td><b>Keep / extend lifecycle</b></td></tr>
-<tr><td>Good performance, weak battery</td><td><b>Replace battery rather than whole device</b></td></tr>
-<tr><td>Healthy lower-spec device</td><td><b>Cascade to lighter persona, kiosk, training or shared-device role</b></td></tr>
-<tr><td>High-spec but under-used device</td><td><b>Reallocate to power-user demand</b></td></tr>
-<tr><td>Persistent performance bottleneck or unsupported hardware</td><td><b>Refresh</b></td></tr>
-<tr><td>High repair cost / security / firmware / supportability risk</td><td><b>Retire and sanitise</b></td></tr>
-</tbody>
-</table>
-<p>Use Intune Endpoint Analytics / Advanced Analytics data such as resource performance and battery health where available. For asset disposal/reuse, follow an approved sanitisation standard and evidence process rather than informal disk wiping.</p>
+  <h2>5. Hardware lifecycle, reuse and asset recycling</h2>
+
+
+  <div class="callout amber">
+    <b>September 2026 lifecycle check:</b> Windows 10 ESU Year 1 ends on <b>13 October 2026</b>. A Windows 10 device that cannot move to Windows 11 needs an explicit decision: refresh/replace, retire, or use ESU as a controlled temporary bridge. Telemetry is important, but OS eligibility and supportability are also hard refresh triggers. <a href="#s57">[S57]</a>
+  </div>
+
+  <h3>5.1 Stop using age alone as the refresh trigger</h3>
+  <p>Microsoft Intune Advanced Analytics provides CPU/RAM resource performance and battery health data. Microsoft specifically notes that devices with strong battery health can be cross-checked against resource performance and considered for <b>extended lifecycle usage to reduce costs</b>. <a href="#s19">[S19]</a></p>
+
+  <table>
+    <thead><tr><th>Device state</th><th>Action</th><th>Reason</th></tr></thead>
+    <tbody>
+      <tr><td>Good CPU/RAM + good battery + supported OS</td><td><b>Keep / extend lifecycle</b></td><td>No evidence that replacement will materially improve experience.</td></tr>
+      <tr><td>Good CPU/RAM + poor battery</td><td><b>Replace battery first</b></td><td>Cheaper than full device refresh where repair economics are sensible.</td></tr>
+      <tr><td>Low-spec but healthy</td><td><b>Cascade/reassign</b></td><td>Move to light-use/frontline/training/kiosk persona instead of disposal.</td></tr>
+      <tr><td>High-spec underused</td><td><b>Reallocate</b></td><td>Move power hardware to genuine power users; replace donor user with standard tier.</td></tr>
+      <tr><td>Repeated resource bottleneck or unsupported hardware</td><td><b>Refresh</b></td><td>Evidence supports replacement.</td></tr>
+      <tr><td>Repair cost high / security or supportability risk</td><td><b>Retire and sanitise</b></td><td>Do not preserve hardware at the expense of security or supportability.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>5.2 Make redeployment a standard service</h3>
+  <table>
+    <thead><tr><th>Scenario</th><th>Supported approach</th><th>Operational outcome</th></tr></thead>
+    <tbody>
+      <tr><td>Microsoft Entra joined Autopilot device</td><td><b>Autopilot Reset</b></td><td>Removes user data/apps/settings, maintains Entra/Intune connection and returns the device to a business-ready state for reassignment. <a href="#s20">[S20]</a></td></tr>
+      <tr><td>Hybrid Entra joined device</td><td><b>Full wipe/rebuild path</b></td><td>Autopilot Reset is not supported for hybrid joined devices. <a href="#s20">[S20]</a></td></tr>
+      <tr><td>Storage/media reuse or disposal</td><td><b>Approved sanitisation process</b></td><td>NIST SP 800-88r2 supports clear/purge/destroy based on risk; purge can preserve media for reuse where appropriate. <a href="#s21">[S21]</a></td></tr>
+    </tbody>
+  </table>
+
+  <h3>5.3 Asset lifecycle KPIs</h3>
+  <div class="grid grid-4">
+    <div class="card"><div class="metric-label">Reuse</div><div class="metric">%</div><p class="small">Returned devices successfully redeployed.</p></div>
+    <div class="card"><div class="metric-label">Refresh avoidance</div><div class="metric">$</div><p class="small">Budget avoided by lifecycle extension/repair.</p></div>
+    <div class="card"><div class="metric-label">Turnaround</div><div class="metric">days</div><p class="small">Return-to-ready-stock cycle time.</p></div>
+    <div class="card"><div class="metric-label">Sanitisation evidence</div><div class="metric">100%</div><p class="small">Retired/reused media with auditable sanitisation outcome.</p></div>
+  </div>
 </section>
 
 <section id="ops">
-<h2>8. Reduce recurring EUC operational effort</h2>
-<table>
-<thead><tr><th>Area</th><th>Useful action</th><th>Measure</th></tr></thead>
-<tbody>
-<tr><td>Recurring device faults</td><td>Turn stable detect/fix patterns into Intune Remediations.</td><td>Tickets avoided, success rate, false remediation rate.</td></tr>
-<tr><td>Microsoft app servicing</td><td>Use managed cloud update/Autopatch where the operating model supports it.</td><td>Patch compliance, update incidents, engineer hours.</td></tr>
-<tr><td>Third-party apps</td><td>Use Enterprise App Management or another managed catalogue where coverage and licence economics fit.</td><td>Packages eliminated, update latency, vulnerabilities reduced.</td></tr>
-<tr><td>Remote support</td><td>Use existing Remote Help entitlement in E3/E5 where it meets requirements before renewing overlapping remote-control products.</td><td>Tool cost, session success, support handle time.</td></tr>
-<tr><td>Legacy management</td><td>Move suitable co-management workloads deliberately; retire ConfigMgr dependencies only after content, reporting, recovery and operational dependencies are proven gone.</td><td>Servers/roles retired, admin hours, duplicate policy count.</td></tr>
-<tr><td>Stale Intune records</td><td>Use cleanup rules for reporting hygiene.</td><td>Inventory accuracy. Remember: cleanup hides stale Intune records; it is not a wipe/retire action.</td></tr>
-</tbody>
-</table>
+  <h2>6. Reduce EUC operational effort</h2>
+
+  <h3>6.1 Eliminate repeat work</h3>
+  <table>
+    <thead><tr><th>Manual work today</th><th>Optimised pattern</th><th>Expected effect</th><th>Control</th></tr></thead>
+    <tbody>
+      <tr><td>Repeated support fixes</td><td><b>Intune Remediations</b> for deterministic detection + remediation scripts.</td><td>Microsoft describes Remediations as a way to fix common issues before users notice them and reduce support calls/tickets. <a href="#s22">[S22]</a></td><td>Version control, ring deployment, rollback/disable path, success/failure telemetry.</td></tr>
+      <tr><td>Manual Windows/M365 app patch orchestration</td><td><b>Windows Autopatch</b> + <b>Microsoft 365 Apps Cloud Update</b>.</td><td>Reduces update-planning effort and centralises rollout/health visibility. <a href="#s23">[S23]</a> <a href="#s24">[S24]</a></td><td>Business-critical exclusions and pilot rings remain necessary.</td></tr>
+      <tr><td>Recurring Win32 repackaging</td><td><b>Enterprise App Management</b> for supported catalog apps; use auto-update/guided supersedence as appropriate.</td><td>Removes manual package creation/supersedence for supported apps. <a href="#s25">[S25]</a></td><td>Catalog coverage is finite; auto-update has no automatic rollback.</td></tr>
+      <tr><td>Manual remote-support trust/permissions</td><td><b>Remote Help</b> using Entra authentication + Intune RBAC where fit.</td><td>Potential tool consolidation and consistent controls. <a href="#s26">[S26]</a></td><td>Remote Help is same-tenant only; validate external/privileged support requirements.</td></tr>
+      <tr><td>Manual app/service licence allocation</td><td><b>Group-based licensing</b> by persona.</td><td>Automatic assignment/removal as users enter/leave groups.</td><td>Exception process for temporary and specialist licences.</td></tr>
+      <tr><td>High branch/office update bandwidth</td><td><b>Delivery Optimization</b> / peer caching / Connected Cache where appropriate.</td><td>Reduces repeated internet downloads and bandwidth consumption. <a href="#s27">[S27]</a></td><td>Design for proxies/VPN/NAT and do not enable internet peering without policy review.</td></tr>
+      <tr><td>Dirty inventory/reporting</td><td><b>Intune device cleanup rules</b> plus a separate authoritative asset-decommission process.</td><td>Cleaner administration/reporting.</td><td>Cleanup only hides stale Intune records; it does not retire/wipe devices or delete Entra objects. <a href="#s28">[S28]</a></td></tr>
+    </tbody>
+  </table>
+
+  <h3>6.2 Rationalise ConfigMgr only where the workload has actually moved</h3>
+  <p>Co-management allows individual workloads to move from Configuration Manager to Intune while other workloads remain in ConfigMgr. That supports staged modernisation rather than a risky “big bang”. <a href="#s29">[S29]</a></p>
+  <div class="pillrow">
+    <span class="pill">Compliance</span><span class="pill">Windows Update</span><span class="pill">Endpoint Protection</span><span class="pill">Device configuration</span><span class="pill">Office Click-to-Run</span><span class="pill">Client apps</span>
+  </div>
+  <div class="callout amber">
+    <b>Optimisation rule:</b> do not retire a ConfigMgr role, DP, report, SQL dependency or process merely because devices are co-managed. First prove that its workload, reporting, content, recovery and operational dependencies are no longer required.
+  </div>
+
+  <h3>6.3 Policy and assignment cleanup</h3>
+  <ul>
+    <li>Remove duplicate or superseded configuration profiles and document the authoritative control.</li>
+    <li>Use assignment filters/dynamic groups only where they reduce complexity; avoid a maze of overlapping groups.</li>
+    <li>Standardise naming, ownership, purpose, exception and retirement dates for policies/apps/scripts.</li>
+    <li>Review failed and “not applicable” states as an engineering queue, not background noise.</li>
+    <li>Build read-only Graph/Power BI reporting so engineering reviews are repeatable rather than portal-by-portal manual work.</li>
+  </ul>
 </section>
 
 <section id="experience">
-<h2>9. Cost optimisation must protect employee experience</h2>
-<p>Every saving should carry an experience check. A technically cheaper state that increases downtime, support calls or user waiting time can be more expensive overall.</p>
-<div class="grid g3">
-<div class="card"><h3>Device</h3><ul><li>Startup/sign-in performance</li><li>CPU/RAM pressure</li><li>Battery health</li><li>App reliability</li></ul></div>
-<div class="card"><h3>Virtual desktop</h3><ul><li>Connection success</li><li>Latency / bandwidth</li><li>Login duration</li><li>CPU/RAM contention</li><li>Disconnect reason</li></ul></div>
-<div class="card"><h3>Operations</h3><ul><li>Tickets per 100 users</li><li>Mean time to resolve</li><li>Self-heal / ticket deflection</li><li>Zero-touch deployment rate</li><li>Rebuild / replacement rate</li></ul></div>
-</div>
-</section>
+  <h2>7. Optimise user experience as an operating metric</h2>
+  <p>Cost reduction that pushes effort to users or the service desk is not optimisation. Measure the experience before and after each material change.</p>
 
-<section id="calc">
-<h2>10. Simple savings calculator</h2>
-<p>This calculator deliberately separates <b>recurring annual savings</b> from <b>one-off refresh avoidance</b>. Enter values in the selected currency using your own contracted or local prices. The Microsoft list-price examples elsewhere on this page are USD.</p>
-<div class="calc">
-<div class="calc-grid">
-<div><label>Currency</label><select id="cur"><option value="USD">USD</option><option value="AUD">AUD</option></select></div>
-<div><label>Assigned SaaS/licence seats</label><input id="seats" type="number" value="5000"></div>
-<div><label>Average monthly contracted seat cost</label><input id="seatCost" type="number" value="20" step="0.01"></div>
-<div><label>Reclaimable seats (%)</label><input id="reclaim" type="number" value="5" step="0.1"></div>
-<div><label>Cloud desktops right-sized</label><input id="cloudCount" type="number" value="300"></div>
-<div><label>Monthly saving per Cloud PC</label><input id="cloudSave" type="number" value="25" step="0.01"></div>
-<div><label>Annual AVD optimisation saving</label><input id="avd" type="number" value="50000" step="100"></div>
-<div><label>Devices whose refresh is avoided</label><input id="devices" type="number" value="200"></div>
-<div><label>Replacement cost per device</label><input id="replaceCost" type="number" value="1800" step="10"></div>
-<div><label>Repair/redeploy cost per retained device</label><input id="reuseCost" type="number" value="250" step="10"></div>
-<div><label>One-time implementation cost</label><input id="impl" type="number" value="0" step="100"></div>
-<div><label>Annual run/governance cost</label><input id="runCost" type="number" value="0" step="100"></div>
-</div>
-<div class="results">
-<div class="result"><span>Recurring annual saving</span><strong id="recurring">$0</strong><small>Licence reclaim + Cloud PC + AVD, less annual run cost</small></div>
-<div class="result"><span>Year 1 net opportunity</span><strong id="y1">$0</strong><small>Recurring + one-off refresh avoidance − implementation</small></div>
-<div class="result"><span>3-year net opportunity</span><strong id="y3">$0</strong><small>Three years recurring + one-off refresh avoidance − implementation</small></div>
-</div>
-</div>
+  <table>
+    <thead><tr><th>Experience area</th><th>Measure</th><th>Action when poor</th></tr></thead>
+    <tbody>
+      <tr><td><b>Startup/sign-in</b></td><td>Endpoint Analytics startup score, boot/logon time.</td><td>Find slow processes, policy/logon delays, hardware bottlenecks and app-startup impact. <a href="#s30">[S30]</a></td></tr>
+      <tr><td><b>Application stability</b></td><td>App reliability / mean time to failure / crash frequency.</td><td>Prioritise high-usage apps with repeated failures; validate version, add-ins and endpoint pattern. <a href="#s31">[S31]</a></td></tr>
+      <tr><td><b>CPU/RAM</b></td><td>Resource performance score and spike time.</td><td>Decide whether issue is app/process, configuration, or true hardware insufficiency before refresh. <a href="#s19">[S19]</a></td></tr>
+      <tr><td><b>Battery</b></td><td>Battery health/capacity score.</td><td>Repair battery under warranty or replace battery before full laptop replacement where appropriate. <a href="#s32">[S32]</a></td></tr>
+      <tr><td><b>Support friction</b></td><td>Tickets per 100 users, repeat-ticket rate, time to restore.</td><td>Turn the top repeatable issues into remediation, knowledge, policy or product backlog.</td></tr>
+      <tr><td><b>Virtual desktop</b></td><td>Logon duration, session latency, CPU/RAM/storage contention, disconnects.</td><td>Right-size session hosts/Cloud PCs, tune capacity and network path; do not solve all issues by adding compute.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Experience-led hardware refresh rule</h3>
+  <div class="callout green"><b>Refresh when:</b> telemetry shows sustained resource or battery constraint, the device is unsupported/unrepairable, or the business productivity/security cost exceeds the lifecycle-extension benefit.</div>
+  <div class="callout red"><b>Do not refresh solely because:</b> the device crossed an arbitrary age threshold while it remains supported, reliable and performant for the assigned persona.</div>
 </section>
 
 <section id="roadmap">
-<h2>11. A practical 90-day optimisation plan</h2>
-<table>
-<thead><tr><th>Period</th><th>Actions</th><th>Outputs</th></tr></thead>
-<tbody>
-<tr><td><b>Days 0–30</b></td><td>Confirm renewal dates and contract unit rates; export assigned/licence usage; classify user personas; baseline W365/AVD sizing; identify Windows 10/11 estate; capture top support ticket patterns.</td><td>Current-state cost baseline, renewal calendar, top opportunity list.</td></tr>
-<tr><td><b>Days 31–60</b></td><td>Pilot licence reclaim; validate F1/F3 eligibility; test E3/E5/E7 cohorts; identify duplicate Intune/support tools; pilot Cloud PC downsizing; define ESU/refresh exceptions; build 3–5 remediations.</td><td>Pilot evidence with cost, UX and risk impact.</td></tr>
-<tr><td><b>Days 61–90</b></td><td>Scale approved changes; execute renewal true-down; deploy AVD scaling changes; launch hardware reuse workflow; formalise Copilot seat review; retire duplicate tooling where replacement is proven.</td><td>Realised saving, operational KPIs and quarterly review process.</td></tr>
-</tbody>
-</table>
-<h3>Quarterly KPIs</h3>
-<div class="grid g4">
-<div class="card"><b>Licence utilisation</b><p class="small">Assigned vs active vs exception.</p></div>
-<div class="card"><b>Virtual desktop unit cost</b><p class="small">Per active user/session and idle compute.</p></div>
-<div class="card"><b>Refresh avoidance</b><p class="small">Devices retained or redeployed safely.</p></div>
-<div class="card"><b>Operational deflection</b><p class="small">Tickets and engineer hours removed.</p></div>
-</div>
+  <h2>8. 90-day EUC optimisation program</h2>
+
+  <table>
+    <thead><tr><th>Period</th><th>Actions</th><th>Deliverable</th><th>Decision gate</th></tr></thead>
+    <tbody>
+      <tr><td><b>Days 0–30</b></td><td>Build cost/entitlement baseline; extract M365/Copilot/Adobe/Zoom usage; inventory W365/AVD sizes; enable/validate Endpoint Analytics; identify top 20 service-desk drivers.</td><td>Baseline dashboard + first savings backlog.</td><td>Separate contractual savings from theoretical list-price savings.</td></tr>
+      <tr><td><b>Days 31–60</b></td><td>Pilot licence reclaim; review E3/E5 duplicate tools; right-size small Cloud PC/AVD cohort; create 3–5 Remediations; define device reuse workflow.</td><td>Pilot evidence pack with before/after cost and UX.</td><td>No broad rollout where UX or support demand worsens.</td></tr>
+      <tr><td><b>Days 61–90</b></td><td>Scale proven reclaim; expand virtual right-sizing; implement automated licence groups; operationalise Autopatch/Cloud Update improvements; launch repair/reuse KPI; negotiate upcoming renewals using measured usage.</td><td>Quarterly optimisation operating model.</td><td>Only count realised savings once contract/billing/consumption actually changes.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Recommended quarterly scorecard</h3>
+  <table>
+    <thead><tr><th>KPI</th><th>Formula</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Licence utilisation</td><td>Active users ÷ assigned users</td><td>Shows shelfware and adoption gaps.</td></tr>
+      <tr><td>Licence reclaim value</td><td>Reclaimed seats × contracted unit cost</td><td>Real recurring saving if subscription quantity/true-up is reduced.</td></tr>
+      <tr><td>Cloud desktop unit cost</td><td>Monthly W365/AVD cost ÷ active users</td><td>Lets you compare persona/platform economics.</td></tr>
+      <tr><td>AVD idle compute</td><td>Powered-on unused host hours ÷ total powered-on host hours</td><td>Direct autoscale/right-sizing opportunity.</td></tr>
+      <tr><td>Refresh avoidance</td><td>Devices retained/repaired × avoided replacement cost</td><td>Measures lifecycle value.</td></tr>
+      <tr><td>Ticket deflection</td><td>Baseline repeat tickets − post-remediation tickets</td><td>Shows whether automation removes work.</td></tr>
+      <tr><td>Zero-touch deployment rate</td><td>Autopilot/automated deployments ÷ total deployments</td><td>Tracks provisioning efficiency.</td></tr>
+      <tr><td>Endpoint experience</td><td>Startup/app reliability/resource/battery trend</td><td>Prevents cost savings from degrading productivity.</td></tr>
+    </tbody>
+  </table>
 </section>
 
-<section id="changelog">
-<h2>12. Version history</h2>
-<div class="version"><b>v1.2 — 21 September 2026</b><br><span class="small">Republished as normal searchable HTML. Corrected citations; rewrote Intune add-on logic; clarified Agent 365 prerequisites; added renewal timing, AI licence optimisation, Windows 10 ESU/Windows 11 lifecycle, corrected AVD Autoscale and Windows 365 Enterprise references, and redesigned calculator for recurring vs one-off savings.</span></div>
-<div class="version"><b>v1.1 — 21 September 2026</b><br><span class="small">Added F1/F3/E3/E5/E7 persona licensing and Windows 365 optimisation scenarios.</span></div>
-<div class="version"><b>v1.0 — 21 September 2026</b><br><span class="small">Initial EUC cost, experience and operational-effort playbook.</span></div>
+<section id="calculator">
+  <h2>9. Simple savings estimator</h2>
+  <p>Use your <b>contracted or local prices</b>, not the public USD examples elsewhere on this page. Choose a display currency and enter all values in that same currency. The calculator separates recurring savings from one-off hardware refresh avoidance.</p>
+  <div class="calc">
+    <div class="calc-grid">
+      <div><label>Display currency</label><select id="currency"><option value="USD">USD</option><option value="AUD">AUD</option></select></div>
+      <div><label>Assigned SaaS licences</label><input id="licCount" type="number" value="5000" min="0"></div>
+      <div><label>Average monthly contracted cost per licence</label><input id="licCost" type="number" value="20" min="0" step="0.01"></div>
+      <div><label>Reclaimable licences (%)</label><input id="licPct" type="number" value="5" min="0" max="100" step="0.1"></div>
+
+      <div><label>Devices where refresh can be avoided</label><input id="devCount" type="number" value="200" min="0"></div>
+      <div><label>Average replacement cost per device</label><input id="devCost" type="number" value="1800" min="0" step="1"></div>
+      <div><label>Net repair/redeployment cost per retained device</label><input id="devRepair" type="number" value="250" min="0" step="1"></div>
+
+      <div><label>Cloud desktops to right-size</label><input id="cloudCount" type="number" value="300" min="0"></div>
+      <div><label>Monthly saving per right-sized desktop</label><input id="cloudSave" type="number" value="25" min="0" step="0.01"></div>
+      <div><label>AVD annual baseline compute cost</label><input id="avdBase" type="number" value="500000" min="0" step="1"></div>
+
+      <div><label>Estimated AVD optimisation (%)</label><input id="avdPct" type="number" value="10" min="0" max="100" step="0.1"></div>
+      <div><label>Other annual tool consolidation saving</label><input id="toolSave" type="number" value="0" min="0" step="1"></div>
+      <div><label>One-time implementation / transition cost</label><input id="implCost" type="number" value="0" min="0" step="1"></div>
+    </div>
+    <div class="grid grid-3" style="margin-top:14px">
+      <div class="result"><span class="small" style="color:#cfe2f7">Annual licence reclaim</span><strong id="r1">$0</strong></div>
+      <div class="result"><span class="small" style="color:#cfe2f7">One-off refresh avoidance</span><strong id="r2">$0</strong></div>
+      <div class="result"><span class="small" style="color:#cfe2f7">Annual Cloud PC / AVD saving</span><strong id="r3">$0</strong></div>
+    </div>
+    <div class="grid grid-3" style="margin-top:12px">
+      <div class="result"><span class="small" style="color:#cfe2f7">Recurring annual saving</span><strong id="rr">$0</strong></div>
+      <div class="result"><span class="small" style="color:#cfe2f7">Year 1 net opportunity</span><strong id="ry1">$0</strong></div>
+      <div class="result"><span class="small" style="color:#cfe2f7">3-year net opportunity</span><strong id="ry3">$0</strong></div>
+    </div>
+    <p class="small" style="color:#cfe2f7;margin-bottom:0">Illustrative only. Refresh avoidance is counted once; recurring licence/cloud/tool savings repeat each year. Validate contractual, staffing, implementation, tax and business impacts.</p>
+  </div>
+</section>
+
+<section>
+  <h2>10. Guardrails — what not to do</h2>
+  <table>
+    <thead><tr><th>Bad optimisation</th><th>Why it fails</th><th>Better approach</th></tr></thead>
+    <tbody>
+      <tr><td>“Downgrade all E5 users who do not use feature X.”</td><td>E5 contains multiple security/compliance/identity entitlements; one usage metric is not enough.</td><td>Persona + dependency + compliance review by service plan.</td></tr>
+      <tr><td>“Move everyone to Windows 365.”</td><td>Fixed per-user cost can be poor economics for very light/shared/variable use.</td><td>Choose physical, W365 Enterprise, W365 Flex or AVD by usage pattern.</td></tr>
+      <tr><td>“Buy reservations to cut AVD cost.”</td><td>Locks discount onto potentially oversized capacity.</td><td>Right-size/shutdown first, then reserve stable baseline.</td></tr>
+      <tr><td>“Delete stale Intune devices and call asset cleanup complete.”</td><td>Intune cleanup only hides stale records and does not retire/wipe/delete Entra objects.</td><td>Separate admin-data hygiene from authoritative asset retirement.</td></tr>
+      <tr><td>“Replace every four-year-old laptop.”</td><td>Age is a weak proxy for actual user experience.</td><td>Use supportability + resource + battery + failure telemetry.</td></tr>
+      <tr><td>“Use Autopilot Reset for hybrid joined devices.”</td><td>Microsoft does not support Autopilot Reset for hybrid joined devices.</td><td>Use the supported full wipe/rebuild path.</td></tr>
+      <tr><td>“Retire third-party tooling because Microsoft bundles something similar.”</td><td>Feature parity, platform coverage, support model and regulatory requirements may differ.</td><td>Run a formal fit-gap and controlled pilot first.</td></tr>
+    </tbody>
+  </table>
 </section>
 
 <section id="sources">
-<h2>13. Primary sources</h2>
-<ol class="source-list">
-<li id="s1"><a href="https://www.microsoft.com/en-us/licensing/news/2026-M365-Packaging-Pricing-Updates">Microsoft — Microsoft 365 Pricing and Packaging Updates, effective 1 July 2026</a>.</li>
-<li id="s2"><a href="https://www.microsoft.com/en-us/licensing/news/2026-M365-Packaging-Pricing-Updates-FAQ">Microsoft — 2026 Microsoft 365 Pricing and Packaging FAQ</a>.</li>
-<li id="s3"><a href="https://www.microsoft.com/licensing/terms/productoffering/Microsoft365/allprograms">Microsoft Product Terms — Microsoft 365 E3/E5/E7 components</a>.</li>
-<li id="s4"><a href="https://www.microsoft.com/licensing/terms/product/ForallOnlineServices">Microsoft Product Terms — eligibility to assign Frontline Worker licences</a>.</li>
-<li id="s5"><a href="https://www.microsoft.com/licensing/faqs/122">Microsoft Licensing FAQ — Agent 365 licensing, qualifying options and $15 standalone / $99 E7 pricing</a>.</li>
-<li id="s6"><a href="https://learn.microsoft.com/copilot/microsoft-365/microsoft-365-copilot-licensing">Microsoft Learn — Microsoft Copilot licence options and Copilot Chat</a>.</li>
-<li id="s7"><a href="https://www.microsoft.com/en-us/security/microsoft-intune-pricing">Microsoft — Intune pricing and July 2026 E3/E5 capability inclusion</a>.</li>
-<li id="s8"><a href="https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-reports-for-admins">Microsoft Learn — Copilot readiness and usage reports for IT admins</a>.</li>
-<li id="s9"><a href="https://learn.microsoft.com/en-us/intune/copilot/troubleshoot-devices">Microsoft Learn — use Copilot in Intune to troubleshoot devices</a>.</li>
-<li id="s10"><a href="https://learn.microsoft.com/en-us/windows-365/enterprise/copilot-in-intune-for-windows365">Microsoft Learn — Copilot in Intune for Windows 365 utilisation, performance and licensing insights</a>.</li>
-<li id="s11"><a href="https://learn.microsoft.com/en-us/windows-365/enterprise/cloud-pc-size-recommendations">Microsoft Learn — Windows 365 Cloud PC size recommendations</a>.</li>
-<li id="s12"><a href="https://learn.microsoft.com/en-us/azure/virtual-desktop/autoscale-glossary">Microsoft Learn — AVD Autoscale native service</a>.</li>
-<li id="s13"><a href="https://learn.microsoft.com/en-us/azure/virtual-desktop/start-virtual-machine-connect">Microsoft Learn — AVD Start VM on Connect</a>.</li>
-<li id="s14"><a href="https://learn.microsoft.com/en-us/azure/virtual-desktop/autoscale-monitor-operations-insights">Microsoft Learn — monitor AVD Autoscale operations with Insights</a>.</li>
-<li id="s15"><a href="https://learn.microsoft.com/en-us/windows-365/enterprise/resize-cloud-pc-bulk">Microsoft Learn — resize Windows 365 Enterprise Cloud PCs in bulk</a>.</li>
-<li id="s16"><a href="https://learn.microsoft.com/en-us/lifecycle/faq/extended-security-updates">Microsoft Learn — Extended Security Updates lifecycle dates, including Windows 10</a>.</li>
-<li id="s17"><a href="https://learn.microsoft.com/en-us/intune/advanced-analytics/resource-performance">Microsoft Learn — Intune Advanced Analytics resource performance</a>.</li>
-<li id="s18"><a href="https://learn.microsoft.com/en-us/intune/advanced-analytics/battery-health">Microsoft Learn — Intune battery health</a>.</li>
-<li id="s19"><a href="https://csrc.nist.gov/pubs/sp/800/88/r2/final">NIST SP 800-88 Rev. 2 — Guidelines for Media Sanitization</a>.</li>
-<li id="s20"><a href="https://www.microsoft.com/licensing/terms/en-US/product/Microsoft365/MCA">Microsoft Product Terms — Windows use rights and Microsoft 365 F1/F3 conditions</a>.</li>
-</ol>
+  <h2>11. Evidence base</h2>
+  <p class="small">Primary vendor documentation is preferred. Pricing and packaging can change; use the applicable contract and Microsoft Product Terms as the final licensing authority.</p>
+  <ol class="source-list">
+    <li id="s1"><a href="https://www.microsoft.com/en-us/security/microsoft-intune-pricing">Microsoft Intune pricing and 2026 E3/E5 capability inclusion</a>.</li>
+    <li id="s2"><a href="https://www.microsoft.com/en-us/licensing/news/2026-M365-Packaging-Pricing-Updates">Microsoft 365 Pricing and Packaging Updates — July 2026</a>.</li>
+    <li id="s3"><a href="https://learn.microsoft.com/en-us/entra/identity/users/licensing-admin-center">Microsoft 365 group-based licensing</a>.</li>
+    <li id="s4"><a href="https://learn.microsoft.com/en-us/microsoft-365/admin/usage-analytics/active-user-in-usage-reports">Microsoft 365 active-user usage reports</a>.</li>
+    <li id="s5"><a href="https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-reports-for-admins">Microsoft 365 Copilot readiness and usage reports for admins</a>.</li>
+    <li id="s6"><a href="https://learn.microsoft.com/en-us/microsoft-365-apps/licensing-activation/overview-shared-computer-activation">Microsoft 365 Apps Shared Computer Activation</a> and <a href="https://learn.microsoft.com/en-us/microsoft-365-apps/licensing-activation/device-based-licensing">device-based licensing</a>.</li>
+    <li id="s7"><a href="https://learn.microsoft.com/en-us/azure/virtual-desktop/licensing">Azure Virtual Desktop licensing</a>.</li>
+    <li id="s8"><a href="https://helpx.adobe.com/business/enterprise/products-entitlements/manage-products/assign-products.html">Adobe Admin Console product assignment/removal</a>.</li>
+    <li id="s9"><a href="https://helpx.adobe.com/business/enterprise/deploy-apps-updates/manage-shared-device-licensing/recover-sdl-licenses.html">Adobe shared-device licence recovery</a>.</li>
+    <li id="s10"><a href="https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0064911">Zoom licence assignment/removal</a>.</li>
+    <li id="s11"><a href="https://learn.microsoft.com/en-us/windows-365/enterprise/overview">Windows 365 Enterprise overview and fixed per-user billing model</a>.</li>
+    <li id="s12"><a href="https://learn.microsoft.com/en-us/windows-365/enterprise/introduction-windows-365-frontline">Windows 365 Flex modes</a> and <a href="https://www.microsoft.com/licensing/terms/productoffering/Windows365/allprograms">Microsoft Product Terms for Windows 365</a>.</li>
+    <li id="s13"><a href="https://learn.microsoft.com/en-us/azure/virtual-desktop/windows-multisession-faq">Windows Enterprise multi-session FAQ</a>.</li>
+    <li id="s14"><a href="https://learn.microsoft.com/en-us/windows-365/enterprise/report-cloud-pc-recommendations">Windows 365 Cloud PC recommendations</a>.</li>
+    <li id="s15"><a href="https://learn.microsoft.com/en-us/windows-365/enterprise/resize-cloud-pc-bulk">Windows 365 Enterprise Cloud PC bulk resize guidance</a>.</li>
+    <li id="s16"><a href="https://learn.microsoft.com/en-us/azure/virtual-desktop/autoscale-glossary">Azure Virtual Desktop native Autoscale guidance</a>.</li>
+    <li id="s17"><a href="https://learn.microsoft.com/en-us/azure/virtual-desktop/start-virtual-machine-connect">AVD Start VM on Connect</a>.</li>
+    <li id="s18"><a href="https://learn.microsoft.com/en-us/azure/advisor/advisor-how-to-calculate-total-cost-savings">Azure Advisor cost-optimisation sequence</a>.</li>
+    <li id="s19"><a href="https://learn.microsoft.com/en-us/intune/advanced-analytics/resource-performance">Intune Resource Performance report</a>.</li>
+    <li id="s20"><a href="https://learn.microsoft.com/en-us/autopilot/windows-autopilot-reset">Windows Autopilot Reset</a>.</li>
+    <li id="s21"><a href="https://csrc.nist.gov/news/2025/guidelines-for-media-sanitization-rev-2">NIST SP 800-88 Rev. 2 media sanitisation</a>.</li>
+    <li id="s22"><a href="https://learn.microsoft.com/en-gb/intune/device-management/tools/deploy-remediations">Intune Remediations</a>.</li>
+    <li id="s23"><a href="https://learn.microsoft.com/en-us/windows/deployment/windows-autopatch/overview/windows-autopatch-overview">Windows Autopatch</a>.</li>
+    <li id="s24"><a href="https://learn.microsoft.com/en-us/microsoft-365-apps/admin-center/cloud-update">Microsoft 365 Apps Cloud Update</a>.</li>
+    <li id="s25"><a href="https://learn.microsoft.com/en-us/intune/app-management/deployment/enterprise-app-management">Intune Enterprise Application Management</a>.</li>
+    <li id="s26"><a href="https://learn.microsoft.com/en-us/intune/remote-help/plan">Intune Remote Help planning</a>.</li>
+    <li id="s27"><a href="https://learn.microsoft.com/en-us/windows/deployment/do/waas-delivery-optimization">Windows Delivery Optimization</a>.</li>
+    <li id="s28"><a href="https://learn.microsoft.com/en-us/intune/governance/configure-cleanup-rules">Intune device cleanup rules</a>.</li>
+    <li id="s29"><a href="https://learn.microsoft.com/en-us/intune/configmgr/comanage/how-to-switch-workloads">Switch ConfigMgr co-management workloads to Intune</a>.</li>
+    <li id="s30"><a href="https://learn.microsoft.com/en-us/intune/endpoint-analytics/configure">Intune Endpoint Analytics overview/configuration</a>.</li>
+    <li id="s31"><a href="https://learn.microsoft.com/en-gb/intune/endpoint-analytics/app-reliability">Endpoint Analytics application reliability</a>.</li>
+    <li id="s32"><a href="https://learn.microsoft.com/en-us/intune/advanced-analytics/battery-health">Intune battery health report</a>.</li>
+<li id="s32a"><a href="https://learn.microsoft.com/en-us/partner-center/announcements/2026-august">Microsoft announcement: Windows 365 Frontline service plans renamed Windows 365 Flex from 3 September 2026; no change to functionality, entitlements or billing</a>.</li>
+
+<li id="s33"><a href="https://www.microsoft.com/en-us/microsoft-365/enterprise/frontline-plans-and-pricing">Microsoft 365 F1/F3 current plan comparison and 2026 pricing</a>.</li>
+<li id="s34"><a href="https://www.microsoft.com/licensing/terms/product/ForallOnlineServices">Microsoft Product Terms — eligibility to assign Frontline Worker licences</a>.</li>
+<li id="s35"><a href="https://learn.microsoft.com/en-us/microsoft-365/frontline/switch-from-enterprise-to-frontline">Microsoft — changing from E plans to F plans; mailbox, Outlook and Teams differences</a>.</li>
+<li id="s36"><a href="https://learn.microsoft.com/en-us/windows/whats-new/windows-licensing">Windows Commercial Licensing Overview — Microsoft 365 F3 Windows Enterprise E3 limitations</a>.</li>
+<li id="s37"><a href="https://www.microsoft.com/en-us/microsoft-365/enterprise/office-365-plans-and-pricing">Office 365 E1/E3/E5 current plans and pricing</a>.</li>
+<li id="s38"><a href="https://www.microsoft.com/licensing/terms/productoffering/Microsoft365/allprograms">Microsoft Product Terms — components of M365 F1/F3/E3/E5/E7</a>.</li>
+<li id="s39"><a href="https://www.microsoft.com/en-us/licensing/news/2026-M365-Packaging-Pricing-Updates">Microsoft 365 July 2026 pricing and packaging update</a>.</li>
+<li id="s40"><a href="https://www.microsoft.com/en-us/security/microsoft-intune-pricing">Microsoft Intune 2026 E3/E5 advanced capability inclusion</a>.</li>
+<li id="s41"><a href="https://www.microsoft.com/licensing/terms/productoffering/Microsoft365/allprograms">Microsoft Product Terms — Microsoft 365 E7 component composition</a>.</li>
+<li id="s42"><a href="https://www.microsoft.com/en-us/security/pricing/enterprise/security-suites">Microsoft Defender Suite and Purview Suite pricing</a>.</li>
+<li id="s43"><a href="https://www.microsoft.com/en-us/security/microsoft-intune-pricing">Microsoft Intune Suite public pricing and 2026 M365 E3/E5 packaging</a>.</li>
+<li id="s44"><a href="https://www.microsoft.com/en-us/microsoft-365-copilot/pricing/enterprise">Microsoft 365 Copilot enterprise pricing</a>.</li>
+<li id="s45"><a href="https://www.microsoft.com/en-us/security/business/microsoft-entra-suite">Microsoft Entra Suite pricing</a>.</li>
+<li id="s46"><a href="https://www.microsoft.com/licensing/faqs/122">Microsoft Agent 365 licensing and standalone pricing</a>.</li>
+<li id="s47"><a href="https://www.microsoft.com/en-us/licensing/news/2026-M365-Packaging-Pricing-Updates">Microsoft July 2026 standalone EMS, Windows and Apps pricing</a>.</li>
+<li id="s48"><a href="https://www.microsoft.com/en-us/microsoft-teams/compare-microsoft-teams-enterprise-options">Microsoft Teams Enterprise and with-/without-Teams enterprise suite pricing</a>.</li>
+<li id="s49"><a href="https://www.microsoft.com/licensing/guidance/Security-Suites">Microsoft licensing guidance — Frontline Defender, Purview, Entra and Intune security suites</a>.</li>
+<li id="s50"><a href="https://www.microsoft.com/en-us/windows-365/frontline/all-pricing/">Windows 365 Flex plans and pricing</a>.</li>
+<li id="s51"><a href="https://www.microsoft.com/en-us/windows-365/enterprise/all-pricing">Windows 365 Enterprise plans and pricing</a>.</li>
+<li id="s52"><a href="https://www.microsoft.com/licensing/terms/productoffering/Windows365/allprograms">Microsoft Product Terms — Windows 365 Enterprise/Flex prerequisites and Flex concurrency rights</a>.</li>
+
+<li id="s53"><a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/microsoft-365-copilot-licensing">Microsoft Learn — Microsoft Copilot licence options and included Copilot Chat</a>.</li>
+<li id="s54"><a href="https://learn.microsoft.com/en-us/copilot/microsoft-365/microsoft-365-copilot-reports-for-admins">Microsoft Learn — Copilot readiness and usage reports</a>.</li>
+<li id="s55"><a href="https://learn.microsoft.com/en-us/intune/copilot/troubleshoot-devices">Microsoft Learn — use Copilot in Intune to troubleshoot devices</a>.</li>
+<li id="s56"><a href="https://learn.microsoft.com/en-us/windows-365/enterprise/copilot-in-intune-for-windows365">Microsoft Learn — Copilot in Intune for Windows 365 performance, connectivity and licence insights</a>.</li>
+<li id="s57"><a href="https://learn.microsoft.com/en-us/lifecycle/faq/extended-security-updates">Microsoft Learn — Extended Security Updates lifecycle dates, including Windows 10</a>.</li>  </ol>
 </section>
 
 <div class="footer">
-<p><b>Public sharing note:</b> this page contains generic guidance, illustrative calculations and information derived from publicly available vendor documentation. It contains no organisation-specific configuration, tenant information, user data, internal pricing, credentials or confidential architecture.</p>
-<p><b>Licensing note:</b> Microsoft licensing is contract- and program-dependent. Validate any purchase, downgrade or reassignment against the current Product Terms, applicable agreement and reseller/Microsoft quotation.</p>
+
+  <p><b>Public sharing note:</b> This edition contains only generic guidance, illustrative calculations and information derived from publicly available vendor documentation. It contains no organisation-specific configuration, tenant information, user data, internal pricing, credentials, confidential architecture, or other sensitive operational information.</p>
+  <p><b>Assumptions:</b> enterprise Windows/EUC estate using Microsoft 365 and Intune, with Windows 365/AVD either deployed or under consideration. Exact commercial savings depend on applicable EA/MCA/CSP terms, local currency, committed quantities, renewal timing and existing tool contracts.</p>
+  <p><b>Use:</b> architecture/operations review, cost optimisation workshop, software-renewal planning, EUC roadmap and leadership discussion. This is technical/operational guidance, not legal or licensing advice.</p>
 </div>
 </main>
 
-<div class="author"><b>Prepared by Anirban Ghosal</b><br>Views expressed are personal and do not represent any employer or organisation. Pricing and licensing information is based on public vendor information and should be validated against applicable agreements before purchase or renewal decisions.</div>
+<div class="document-attribution">
+  <b>Prepared by Anirban Ghosal</b><br>
+  EUC Operations &amp; Licence Engineering Playbook — 2026<br>
+  Version 1.1 · Revised 21 September 2026 · Based on public vendor documentation · Suitable for external sharing<br>Views expressed are personal and do not represent any employer or organisation.
+</div>
+
 
 <script>
-function money(n){
-  var c=document.getElementById('cur').value;
-  return new Intl.NumberFormat(c==='AUD'?'en-AU':'en-US',{style:'currency',currency:c,maximumFractionDigits:0}).format(n||0);
+function money(v){
+  const c=document.getElementById('currency').value;
+  return new Intl.NumberFormat(c==='AUD'?'en-AU':'en-US',{style:'currency',currency:c,maximumFractionDigits:0}).format(v||0);
 }
-function recalc(){
-  var seats=+document.getElementById('seats').value||0;
-  var seatCost=+document.getElementById('seatCost').value||0;
-  var reclaim=(+document.getElementById('reclaim').value||0)/100;
-  var cloudCount=+document.getElementById('cloudCount').value||0;
-  var cloudSave=+document.getElementById('cloudSave').value||0;
-  var avd=+document.getElementById('avd').value||0;
-  var devices=+document.getElementById('devices').value||0;
-  var replaceCost=+document.getElementById('replaceCost').value||0;
-  var reuseCost=+document.getElementById('reuseCost').value||0;
-  var impl=+document.getElementById('impl').value||0;
-  var runCost=+document.getElementById('runCost').value||0;
-  var licence=seats*seatCost*12*reclaim;
-  var cloud=cloudCount*cloudSave*12;
-  var recurring=licence+cloud+avd-runCost;
-  var oneoff=devices*Math.max(0,replaceCost-reuseCost);
-  var y1=recurring+oneoff-impl;
-  var y3=recurring*3+oneoff-impl;
-  document.getElementById('recurring').textContent=money(recurring);
-  document.getElementById('y1').textContent=money(y1);
-  document.getElementById('y3').textContent=money(y3);
+function val(id){return Number(document.getElementById(id).value)||0}
+function calc(){
+  const lic = val('licCount')*val('licCost')*12*(val('licPct')/100);
+  const dev = val('devCount')*Math.max(0,val('devCost')-val('devRepair'));
+  const cloud = val('cloudCount')*val('cloudSave')*12 + val('avdBase')*(val('avdPct')/100);
+  const recurring = lic + cloud + val('toolSave');
+  const year1 = recurring + dev - val('implCost');
+  const year3 = recurring*3 + dev - val('implCost');
+  document.getElementById('r1').textContent=money(lic);
+  document.getElementById('r2').textContent=money(dev);
+  document.getElementById('r3').textContent=money(cloud);
+  document.getElementById('rr').textContent=money(recurring);
+  document.getElementById('ry1').textContent=money(year1);
+  document.getElementById('ry3').textContent=money(year3);
 }
-document.querySelectorAll('.calc input,.calc select').forEach(function(x){x.addEventListener('input',recalc);x.addEventListener('change',recalc);});
-recalc();
+document.querySelectorAll('.calc input,.calc select').forEach(x=>{x.addEventListener('input',calc);x.addEventListener('change',calc)});calc();
 </script>
 </body>
 </html>
