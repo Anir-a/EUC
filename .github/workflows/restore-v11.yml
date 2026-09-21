@@ -26,7 +26,10 @@ jobs:
 
       - name: Restore normal HTML index
         run: |
-          cat page-source/b64-1.txt page-source/b64-2.txt page-source/b64-3.txt page-source/b64-4.txt | base64 -d | gzip -dc > index.html
+          cat page-source/b64-1.txt page-source/b64-2.txt page-source/b64-3.txt page-source/b64-4.txt | base64 -d > /tmp/v11.html.gz
+          echo "c69452ac9723e0d3d298b8cc1b3d312b20f8ff50b273a847b6fae1c294c1710f  /tmp/v11.html.gz" | sha256sum -c -
+          gzip -dc /tmp/v11.html.gz > index.html
+          echo "e004a71abed3800620c54c0bcd5013c8fea278004a39caf9b1fb96c5a68b3521  index.html" | sha256sum -c -
           grep -q "Version 1.1" index.html
           grep -q 'id="ai"' index.html
 
