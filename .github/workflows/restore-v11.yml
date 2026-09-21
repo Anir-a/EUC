@@ -26,7 +26,9 @@ jobs:
 
       - name: Restore normal HTML index
         run: |
-          gzip -dc page-source/v1.1-revised.html.gz > index.html
+          cat page-source/b64-1.txt page-source/b64-2.txt page-source/b64-3.txt page-source/b64-4.txt | base64 -d | gzip -dc > index.html
+          grep -q "Version 1.1" index.html
+          grep -q 'id="ai"' index.html
 
       - name: Commit revised v1.1 index
         run: |
