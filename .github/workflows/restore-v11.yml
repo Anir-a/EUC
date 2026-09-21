@@ -1,0 +1,51 @@
+name: Restore revised v1.1 page
+
+on:
+  push:
+    paths:
+      - ".github/workflows/restore-v11.yml"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "v11-restore"
+  cancel-in-progress: false
+
+jobs:
+  restore-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Restore normal HTML index
+        run: |
+          gzip -dc page-source/v1.1-revised.html.gz > index.html
+
+      - name: Commit revised v1.1 index
+        run: |
+          git config user.name "Anir-a"
+          git config user.email "actions@github.com"
+          git add index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Restore v1.1 with targeted feedback fixes"
+            git push origin main
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: "."
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
